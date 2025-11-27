@@ -1,10 +1,109 @@
-/* 
- * Styles are now largely handled by src/css/custom.css for a unified theme.
- * Keeping layout helpers here.
- */
+/* Hero Layout */
+.heroBanner {
+  padding: 4rem 0;
+  text-align: left; /* Override global center */
+  position: relative;
+  overflow: hidden;
+}
 
-.buttons {
+.heroTextCol {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 2rem;
+  z-index: 1;
+}
+
+.heroImageCol {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.heroImg {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  /* Floating animation */
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Typography & Buttons within Hero */
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--ifm-color-primary-dark), var(--ifm-color-primary-lighter));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* Dark mode title adjustment handled by global CSS mostly, but we can ensure specific override here if needed */
+[data-theme='dark'] .heroTitle {
+  background: linear-gradient(135deg, #ffffff, var(--ifm-color-primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  color: var(--ifm-color-content);
+  opacity: 0;
+  margin-bottom: 2.5rem;
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-start; /* Left align buttons */
+  gap: 1rem;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.4s forwards;
+}
+
+/* Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+
+  .heroTextCol {
+    align-items: center;
+    padding-right: 0;
+    margin-bottom: 3rem;
+  }
+
+  .buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .heroTitle {
+    font-size: 2.5rem;
+  }
 }

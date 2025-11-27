@@ -12,22 +12,32 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--primary button--lg"
-            to="/docs/mechanics/units-physical-quantities-and-vectors">
-            Start Learning 🚀
-          </Link>
-          <Link
-            className="button button--outline button--secondary button--lg"
-            style={{marginLeft: '1rem'}}
-            to="/resources">
-            View Resources 🛠️
-          </Link>
+        <div className="row">
+          <div className={clsx('col col--7', styles.heroTextCol)}>
+            <Heading as="h1" className={styles.heroTitle}>
+              {siteConfig.title}
+            </Heading>
+            <p className={styles.heroSubtitle}>{siteConfig.tagline}</p>
+            <div className={styles.buttons}>
+              <Link
+                className="button button--primary button--lg"
+                to="/docs/mechanics/units-physical-quantities-and-vectors">
+                Start Learning 🚀
+              </Link>
+              <Link
+                className="button button--outline button--secondary button--lg"
+                to="/resources">
+                View Resources 🛠️
+              </Link>
+            </div>
+          </div>
+          <div className={clsx('col col--5', styles.heroImageCol)}>
+            <img 
+              src="img/undraw_docusaurus_react.svg" 
+              alt="Physics Simulation Interaction" 
+              className={styles.heroImg} 
+            />
+          </div>
         </div>
       </div>
     </header>

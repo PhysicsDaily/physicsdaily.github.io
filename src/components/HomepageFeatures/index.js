@@ -56,6 +56,14 @@ export default function HomepageFeatures() {
   return (
     <section className={styles.features}>
       <div className="container">
+        <div className="text--center margin-bottom--xl">
+          <Heading as="h2" style={{fontSize: '2.5rem', fontWeight: '700'}}>
+            Why PhysicsDaily?
+          </Heading>
+          <p style={{fontSize: '1.2rem', color: 'var(--ifm-color-content-secondary)'}}>
+            Everything you need to ace your physics exams in one place.
+          </p>
+        </div>
         <div className="row">
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
