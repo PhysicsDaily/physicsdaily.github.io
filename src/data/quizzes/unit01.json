@@ -1,0 +1,20 @@
+[
+  {
+    "question": "What is the base SI unit for mass?",
+    "options": ["Gram (g)", "Kilogram (kg)", "Pound (lb)", "Newton (N)"],
+    "correctAnswerIndex": 1,
+    "explanation": "The kilogram (kg) is the standard base unit for mass in the SI system."
+  },
+  {
+    "question": "If vector A has magnitude 3 and vector B has magnitude 4, what is the maximum possible magnitude of their sum?",
+    "options": ["1", "5", "7", "12"],
+    "correctAnswerIndex": 2,
+    "explanation": "The maximum magnitude occurs when the vectors are parallel (pointing in the same direction). 3 + 4 = 7."
+  },
+  {
+    "question": "Which of the following is a vector quantity?",
+    "options": ["Temperature", "Time", "Force", "Volume"],
+    "correctAnswerIndex": 2,
+    "explanation": "Force has both magnitude and direction, making it a vector. Temperature, time, and volume are scalars."
+  }
+]

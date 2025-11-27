@@ -1,0 +1,109 @@
+.quizContainer {
+  background-color: var(--ifm-card-background-color);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.questionBlock {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.questionBlock:last-child {
+  border-bottom: none;
+}
+
+.questionText {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--ifm-color-content);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.optionLabel {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.optionLabel:hover {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+.optionInput {
+  margin-right: 1rem;
+  transform: scale(1.2);
+}
+
+.submitButton {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  width: 100%;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background-color: var(--ifm-color-primary-dark);
+}
+
+/* Results Styling */
+.results {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--ifm-background-surface-color);
+  border: 2px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.score {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--ifm-color-primary);
+  margin-bottom: 1rem;
+}
+
+.feedback {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.feedbackCorrect {
+  color: #00a400;
+  background-color: rgba(0, 164, 0, 0.1);
+}
+
+.feedbackIncorrect {
+  color: #e00000;
+  background-color: rgba(224, 0, 0, 0.1);
+}
+
+.correctAnswer {
+  border-color: #00a400;
+  background-color: rgba(0, 164, 0, 0.05);
+}
+
+.incorrectAnswer {
+  border-color: #e00000;
+  background-color: rgba(224, 0, 0, 0.05);
+}

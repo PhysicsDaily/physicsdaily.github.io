@@ -1,0 +1,32 @@
+[
+  {
+    "question": "Why is the study of physics considered fundamental to other sciences?",
+    "options": ["It is the easiest science to learn.", "It deals with the fundamental laws of matter and energy that govern all systems.", "It was the first science to be invented.", "It does not require mathematics."],
+    "correctAnswerIndex": 1,
+    "explanation": "Physics explains the fundamental principles of the universe, such as energy conservation and forces, which underlie chemistry, biology, and engineering."
+  },
+  {
+    "question": "Which ancient Indian text contains early geometric principles used for altar construction?",
+    "options": ["Rig Veda", "Sulba Sutras", "Mahabharata", "Arthashastra"],
+    "correctAnswerIndex": 1,
+    "explanation": "The Sulba Sutras are appendices to the Vedas that give rules for constructing altars, containing geometric knowledge including the Pythagorean theorem concepts."
+  },
+  {
+    "question": "Sage Kanada of the Vaisheshika school is famous for proposing which concept?",
+    "options": ["The Heliocentric model", "The theory of Evolution", "The Atomic theory (Parmanu)", "The Law of Gravity"],
+    "correctAnswerIndex": 2,
+    "explanation": "Kanada proposed that the physical world is made up of indestructible, invisible particles called 'Parmanu' (atoms), centuries before Democritus."
+  },
+  {
+    "question": "What contribution did the Ancient Chinese make to navigation?",
+    "options": ["The Astrolabe", "The Magnetic Compass", "The Sextant", "The Telescope"],
+    "correctAnswerIndex": 1,
+    "explanation": "The Ancient Chinese invented the magnetic compass, originally utilizing lodestone, which revolutionized navigation."
+  },
+  {
+    "question": "Who formulated the universal laws of motion and gravitation?",
+    "options": ["Albert Einstein", "Galileo Galilei", "Isaac Newton", "Nikola Tesla"],
+    "correctAnswerIndex": 2,
+    "explanation": "Isaac Newton's *Principia Mathematica* established the three laws of motion and the law of universal gravitation."
+  }
+]

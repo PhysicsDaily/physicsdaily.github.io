@@ -21,7 +21,7 @@ function HomepageHeader() {
             <div className={styles.buttons}>
               <Link
                 className="button button--primary button--lg"
-                to="/docs/mechanics/units-physical-quantities-and-vectors">
+                to="/docs/introduction/history-of-physics">
                 Start Learning 🚀
               </Link>
               <Link

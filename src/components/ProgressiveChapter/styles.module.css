@@ -1,0 +1,144 @@
+/* Main Container */
+.container {
+  margin-bottom: 3rem;
+  max-width: 800px; /* Optimal reading width */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Progress Bar */
+.progressBar {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+  padding: 0 0.5rem;
+}
+
+.progressStep {
+  height: 6px;
+  flex: 1;
+  background-color: var(--ifm-color-emphasis-200); /* Docusaurus generic gray */
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.progressStepCompleted {
+  background-color: var(--ifm-color-primary); /* Primary brand color */
+  opacity: 0.6;
+}
+
+.progressStepActive {
+  background-color: var(--ifm-color-primary);
+  opacity: 1;
+  transform: scaleY(1.4); /* Highlight active step */
+  box-shadow: 0 0 8px var(--ifm-color-primary-lightest);
+}
+
+/* Section Card */
+.section {
+  background-color: var(--ifm-card-background-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--ifm-card-border-radius);
+  box-shadow: var(--ifm-global-shadow-lw); /* Subtle shadow */
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+/* Typography inside Section */
+.section h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  color: var(--ifm-color-emphasis-900);
+  border-bottom: 2px solid var(--ifm-color-emphasis-100);
+  padding-bottom: 0.5rem;
+}
+
+/* Controls Area */
+.controls {
+  display: flex;
+  justify-content: space-between; /* Spreads buttons apart */
+  align-items: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+/* Buttons */
+.nextButton, .prevButton {
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+}
+
+/* Next / Finish Button */
+.nextButton {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-left: auto; /* Pushes to the right if alone */
+}
+
+.nextButton:hover {
+  background-color: var(--ifm-color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+.nextButton:active {
+  transform: translateY(1px);
+}
+
+/* Previous Button */
+.prevButton {
+  background-color: transparent;
+  color: var(--ifm-color-content-secondary);
+  border-color: var(--ifm-color-emphasis-300);
+}
+
+.prevButton:hover {
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-content);
+  text-decoration: none;
+}
+
+/* Completion Screen */
+.completionSection {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: var(--ifm-background-surface-color);
+  border: 2px dashed var(--ifm-color-primary-lighter);
+}
+
+.completionSection h2 {
+  color: var(--ifm-color-primary);
+  font-size: 2.2rem;
+  border-bottom: none;
+}
+
+.completionSection p {
+  font-size: 1.2rem;
+  color: var(--ifm-color-content-secondary);
+  margin-bottom: 2rem;
+}

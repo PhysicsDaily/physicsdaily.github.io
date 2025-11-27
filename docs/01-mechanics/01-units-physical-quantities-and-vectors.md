@@ -4,14 +4,21 @@ title: Units, Physical Quantities, and Vectors
 ---
 
 import Quiz from '@site/src/components/Quiz';
+import ChapterQuiz from '@site/src/components/ChapterQuiz';
+import { ProgressiveChapter, Section } from '@site/src/components/ProgressiveChapter';
+import unit01Quiz from '@site/src/data/quizzes/unit01.json';
 
 # Units, Physical Quantities, and Vectors
 
-## 1.1 The Nature of Physics
+<ProgressiveChapter>
+
+<Section title="1.1 The Nature of Physics">
 
 Physics is an experimental science. Physicists observe the phenomena of nature and try to find patterns that relate these phenomena. These patterns are called **physical theories** or, when they are very well established and widely used, **physical laws** or **principles**.
 
-## 1.2 Solving Physics Problems
+</Section>
+
+<Section title="1.2 Solving Physics Problems">
 
 To describe physical phenomena, we use **physical quantities**. A physical quantity is any number that can be used to describe a physical phenomenon quantitatively.
 
@@ -26,27 +33,21 @@ $$
 In component form:
 
 $$
-R_x = A_x + B_x \
-R_y = A_y + B_y
+Rx = Ax + Bx \
+Ry = Ay + By
 $$
 
 The magnitude of the resultant vector is:
 
-$$
-|\vec{R}| = \sqrt{R_x^2 + R_y^2}
-$$
+$$|→R| = √{Rx^2 + Ry^2}
+$$ 
 
-## Interactive Practice
+</Section>
 
-Test your understanding of vectors:
+<Section title="Final Chapter Assessment">
 
-<Quiz 
-  question="Which of the following is a scalar quantity?"
-  options={["Velocity", "Displacement", "Speed", "Acceleration"]}
-  correctAnswerIndex={2}
-  explanation="Speed is a scalar quantity because it has magnitude but no direction. Velocity, displacement, and acceleration are all vector quantities."
-/>
+<ChapterQuiz questions={unit01Quiz} />
 
-## Simulation Placeholder
+</Section>
 
-*(Simulations can be added here using React components)*
+</ProgressiveChapter>
