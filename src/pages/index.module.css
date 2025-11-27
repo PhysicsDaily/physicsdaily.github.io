@@ -1,0 +1,10 @@
+/* 
+ * Styles are now largely handled by src/css/custom.css for a unified theme.
+ * Keeping layout helpers here.
+ */
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,69 @@
+.quizContainer {
+  padding: 1.5rem;
+  border: 1px solid var(--ifm-toc-border-color);
+  border-radius: 8px;
+  background-color: var(--ifm-background-surface-color);
+  margin: 2rem 0;
+}
+
+.question {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.optionButton {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ifm-color-content);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.optionButton:hover:not(:disabled) {
+  background-color: var(--ifm-color-emphasis-100);
+  border-color: var(--ifm-color-primary);
+}
+
+.optionButton:disabled {
+  cursor: default;
+  opacity: 0.8;
+}
+
+.selected {
+  border-width: 2px;
+}
+
+.correct {
+  border-color: var(--ifm-color-success);
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+.incorrect {
+  border-color: var(--ifm-color-danger);
+  background-color: rgba(255, 0, 0, 0.05);
+}
+
+.feedback {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 6px;
+}
+
+.feedbackCorrect {
+  background-color: rgba(0, 255, 0, 0.1);
+  color: var(--ifm-color-success);
+}
+
+.feedbackIncorrect {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: var(--ifm-color-danger);
+}
