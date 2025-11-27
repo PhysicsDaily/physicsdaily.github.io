@@ -7,10 +7,6 @@ import Quiz from '@site/src/components/Quiz';
 
 # Units, Physical Quantities, and Vectors
 
-## What is a Vector?
-
-A **vector** is a quantity that has both **magnitude** (size) and **direction**. Examples include velocity, force, and displacement. In contrast, a **scalar** has only magnitude (e.g., mass, temperature, time).
-
 ## 1.1 The Nature of Physics
 
 Physics is an experimental science. Physicists observe the phenomena of nature and try to find patterns that relate these phenomena. These patterns are called **physical theories** or, when they are very well established and widely used, **physical laws** or **principles**.
