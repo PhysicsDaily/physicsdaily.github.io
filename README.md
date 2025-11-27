@@ -1,41 +1,60 @@
-# Website
+# PhysicsDaily ⚛️
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+**University Physics Notes & Interactive Simulations**
 
-## Installation
+Welcome to the repository for **PhysicsDaily**! This open-source project aims to provide comprehensive, university-level physics notes accompanied by interactive React-based simulations to help students visualize and master complex concepts.
+
+## 🚀 Features
+
+- **Comprehensive Notes:** Covers Mechanics, Electromagnetism, Thermodynamics, Optics, and Modern Physics.
+- **Interactive Simulations:** Visualize abstract concepts with custom React components.
+- **Practice Problems:** Integrated quizzes and problem-solving exercises.
+- **Modern UI:** Built with Docusaurus, featuring a clean, responsive design with Dark/Light mode support.
+
+## 🛠️ Tech Stack
+
+- **Framework:** [Docusaurus 3](https://docusaurus.io/)
+- **Frontend:** React.js
+- **Styling:** CSS Modules, Infima
+- **Deployment:** GitHub Pages (via GitHub Actions)
+
+## 💻 Local Development
+
+Prerequisites: Node.js (v18+)
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/PhysicsDaily/physicsdaily.github.io.git
+    cd physicsdaily.github.io
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Start the development server:**
+    ```bash
+    npm start
+    ```
+    The site will open at `http://localhost:3000`.
+
+## 🏗️ Building for Production
+
+To generate the static files:
 
 ```bash
-yarn
+npm run build
 ```
 
-## Local Development
+The output will be in the `build/` directory.
 
-```bash
-yarn start
-```
+## 🤝 Contributing
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+Contributions are welcome! Please feel free to submit a Pull Request or open an issue for bugs/suggestions.
 
-## Build
-
-```bash
-yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-## Deployment
-
-Using SSH:
-
-```bash
-USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+1.  Fork the project.
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
