@@ -77,7 +77,7 @@ const config = {
           },
           {to: '/resources', label: 'Resources', position: 'left'},
           {to: '/about', label: 'About', position: 'left'},
-          {to: '/blog', label: 'Blog', position: 'left'},
+
           {
             href: 'https://github.com/PhysicsDaily/physicsdaily.github.io',
             label: 'GitHub',
