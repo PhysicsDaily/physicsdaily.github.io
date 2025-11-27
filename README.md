@@ -2,7 +2,7 @@
 
 **University Physics Notes & Interactive Simulations**
 
-Welcome to the repository for **PhysicsDaily**! This open-source project aims to provide comprehensive, university-level physics notes accompanied by interactive React-based simulations to help students visualize and master complex concepts.
+Namaste and Welcome to the repository for **PhysicsDaily**! This open-source project aims to provide comprehensive, university-level physics notes accompanied by interactive React-based simulations to help students visualize and master complex concepts.
 
 ## 🚀 Features
 
