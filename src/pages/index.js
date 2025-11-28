@@ -32,14 +32,13 @@ function HomepageHeader() {
             </div>
           </div>
           <div className={clsx('col col--5', styles.heroImageCol)}>
-            <img
-              src="img/undraw_science.svg"
-              alt="Science and Physics Exploration"
-              className={styles.heroImg}
-            />
+            {/* Static image removed as per user request */}
           </div>
         </div>
       </div>
+      {/* Floating Particles */}
+      <img src={require('@site/static/img/floating-einstein.png').default} className={clsx(styles.floatingParticle, styles.particleEinstein)} alt="Floating Einstein" />
+      <img src={require('@site/static/img/floating-newton.png').default} className={clsx(styles.floatingParticle, styles.particleNewton)} alt="Floating Newton" />
     </header>
   );
 }

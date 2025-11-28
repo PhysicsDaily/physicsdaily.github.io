@@ -7,7 +7,7 @@ import rehypeKatex from 'rehype-katex';
 const config = {
   title: 'PhysicsDaily',
   tagline: 'Understand Physics Deeply Through Intuitive Explanations',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/physics-daily-logo-transparent.png',
 
   url: 'https://physicsdaily.github.io',
   baseUrl: '/',
@@ -80,7 +80,8 @@ const config = {
         title: 'PhysicsDaily',
         logo: {
           alt: 'PhysicsDaily Logo',
-          src: 'img/logo.svg',
+          src: 'img/physics-daily-logo-transparent.png',
+          height: '100px',
         },
         items: [
           {
@@ -91,7 +92,6 @@ const config = {
           },
           { to: '/resources', label: 'Resources', position: 'left' },
           { to: '/about', label: 'About', position: 'left' },
-
           {
             href: 'https://github.com/PhysicsDaily/physicsdaily.github.io',
             label: 'GitHub',
