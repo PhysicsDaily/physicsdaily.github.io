@@ -44,7 +44,7 @@ function HomepageHeader() {
             <div className={styles.buttons}>
               <Link
                 className="button button--primary button--lg"
-                to="/docs/introduction/history-of-physics">
+                to="/docs/introduction/introduction-to-physics">
                 Explore Physics 🔭
               </Link>
               <Link
