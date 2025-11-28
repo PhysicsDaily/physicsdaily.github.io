@@ -17,14 +17,14 @@ export function Section({ children, isActive, onNext, onPrevious, title, isFirst
     <div className={styles.section} style={style}>
       {title && <h2>{title}</h2>}
       {children}
-      
+
       <div className={styles.controls}>
         {!isFirst && (
           <button className={styles.prevButton} onClick={onPrevious}>
             ← Previous
           </button>
         )}
-        
+
         <button className={styles.nextButton} onClick={onNext}>
           {isLast ? "Finish Chapter" : "Next Section →"}
         </button>
@@ -66,7 +66,7 @@ export function ProgressiveChapter({ children, completionTitle = "Chapter Comple
       {/* Progress Bar */}
       <div className={styles.progressBar}>
         {childrenArray.map((_, idx) => (
-          <div 
+          <div
             key={idx}
             className={clsx(styles.progressStep, {
               [styles.progressStepActive]: idx === currentIndex,
@@ -96,14 +96,14 @@ export function ProgressiveChapter({ children, completionTitle = "Chapter Comple
           <h2>{completionTitle}</h2>
           <p>{completionMessage}</p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
-             <button className={styles.prevButton} onClick={handlePrevious}>
-                ← Review
-             </button>
-             {nextChapterLink && (
-               <Link to={nextChapterLink} className={styles.nextButton}>
-                 {nextChapterLabel} →
-               </Link>
-             )}
+            <button className={styles.prevButton} onClick={handlePrevious}>
+              ← Review
+            </button>
+            {nextChapterLink && (
+              <Link to={nextChapterLink} className={styles.nextButton}>
+                {nextChapterLabel} →
+              </Link>
+            )}
           </div>
         </div>
       )}
