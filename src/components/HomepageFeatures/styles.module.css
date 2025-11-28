@@ -52,7 +52,7 @@
 }
 
 .featureCard:hover::before {
-  opacity: 1;
+  opacity: 0;
 }
 
 /* Animated gradient border */
@@ -77,13 +77,12 @@
 }
 
 .featureCard:hover::after {
-  opacity: 1;
+  opacity: 0;
 }
 
 .featureCard:hover {
   transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(var(--ifm-color-primary-rgb), 0.15),
-    0 0 0 1px var(--ifm-color-primary);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   border-color: transparent;
 }
 
