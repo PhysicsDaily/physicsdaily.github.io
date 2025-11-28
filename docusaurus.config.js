@@ -1,12 +1,12 @@
 // @ts-check
-import {themes as prismThemes} from 'prism-react-renderer';
+import { themes as prismThemes } from 'prism-react-renderer';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'PhysicsDaily',
-  tagline: 'University Physics Notes & Simulations',
+  tagline: 'Understand Physics Deeply Through Intuitive Explanations',
   favicon: 'img/favicon.ico',
 
   url: 'https://physicsdaily.github.io',
@@ -46,7 +46,6 @@ const config = {
   themes: [
     [
       '@easyops-cn/docusaurus-search-local',
-      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
       ({
         hashed: true,
         language: ['en'],
@@ -90,8 +89,8 @@ const config = {
             position: 'left',
             label: 'Notes',
           },
-          {to: '/resources', label: 'Resources', position: 'left'},
-          {to: '/about', label: 'About', position: 'left'},
+          { to: '/resources', label: 'Resources', position: 'left' },
+          { to: '/about', label: 'About', position: 'left' },
 
           {
             href: 'https://github.com/PhysicsDaily/physicsdaily.github.io',

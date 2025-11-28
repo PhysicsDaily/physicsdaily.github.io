@@ -8,7 +8,7 @@ import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
@@ -22,7 +22,7 @@ function HomepageHeader() {
               <Link
                 className="button button--primary button--lg"
                 to="/docs/introduction/history-of-physics">
-                Start Learning 🚀
+                Explore Physics 🔭
               </Link>
               <Link
                 className="button button--outline button--secondary button--lg"
@@ -32,10 +32,10 @@ function HomepageHeader() {
             </div>
           </div>
           <div className={clsx('col col--5', styles.heroImageCol)}>
-            <img 
-              src="img/undraw_docusaurus_react.svg" 
-              alt="Physics Simulation Interaction" 
-              className={styles.heroImg} 
+            <img
+              src="img/undraw_science.svg"
+              alt="Science and Physics Exploration"
+              className={styles.heroImg}
             />
           </div>
         </div>
@@ -45,11 +45,11 @@ function HomepageHeader() {
 }
 
 export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
+  const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
       title={`Home`}
-      description="Master university physics with free interactive notes, simulations, and practice problems.">
+      description="Understand physics deeply through intuitive explanations, visual exploration, and interactive learning.">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

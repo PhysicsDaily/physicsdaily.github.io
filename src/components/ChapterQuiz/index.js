@@ -46,7 +46,7 @@ export default function ChapterQuiz({ questions }) {
       {!submitted ? (
         <>
           <div style={{ marginBottom: '1.5rem' }}>
-            <p>Answer the following questions to test your mastery of this chapter.</p>
+            <p>Answer the following questions to check your understanding of this chapter's concepts.</p>
           </div>
           
           {questions.map((q, qIdx) => (
@@ -72,19 +72,19 @@ export default function ChapterQuiz({ questions }) {
           ))}
 
           <button className={styles.submitButton} onClick={handleSubmit}>
-            Submit Test
+            Check Answers
           </button>
         </>
       ) : (
         <div className={styles.results}>
-          <h3>Test Results</h3>
+          <h3>Your Understanding</h3>
           <div className={styles.score}>
             {calculateScore()} / {questions.length}
           </div>
           <p>
             {calculateScore() === questions.length 
-              ? "Perfect score! You have mastered this chapter." 
-              : "Review the feedback below and try again to improve your score."}
+              ? "Excellent! You have a solid grasp of these concepts." 
+              : "Review the explanations below to deepen your understanding."}
           </p>
           
           <button 
@@ -92,7 +92,7 @@ export default function ChapterQuiz({ questions }) {
             onClick={resetQuiz}
             style={{ marginTop: '1rem', backgroundColor: '#6c757d' }}
           >
-            Retake Test
+            Try Again
           </button>
 
           <div style={{ marginTop: '3rem', textAlign: 'left' }}>

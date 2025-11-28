@@ -1,16 +1,44 @@
 /* Hero Layout */
 .heroBanner {
-  padding: 4rem 0;
-  text-align: left; /* Override global center */
+  padding: 6rem 0;
+  text-align: left;
   position: relative;
   overflow: hidden;
+  background: radial-gradient(circle at 50% 50%, rgba(var(--ifm-color-primary-rgb), 0.1) 0%, transparent 50%);
+}
+
+/* Animated gradient orbs background */
+.heroBanner::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(var(--ifm-color-primary-rgb), 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float-orb 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+.heroBanner::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: float-orb 15s ease-in-out infinite reverse;
+  z-index: 0;
 }
 
 .heroTextCol {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-right: 2rem;
+  padding-right: 3rem;
   z-index: 1;
 }
 
@@ -24,61 +52,131 @@
 
 .heroImg {
   width: 100%;
-  max-width: 500px;
+  max-width: 550px;
   height: auto;
-  /* Floating animation */
-  animation: float 6s ease-in-out infinite;
+  /* Enhanced floating animation with rotation */
+  animation: float-enhanced 6s ease-in-out infinite;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
+  transition: filter 0.3s ease;
+}
+
+.heroImg:hover {
+  filter: drop-shadow(0 15px 40px rgba(var(--ifm-color-primary-rgb), 0.3));
 }
 
 /* Typography & Buttons within Hero */
 .heroTitle {
-  font-size: 3.5rem;
+  font-size: 4rem;
   font-weight: 800;
-  line-height: 1.2;
+  line-height: 1.1;
   margin-bottom: 1.5rem;
   background: linear-gradient(135deg, var(--ifm-color-primary-dark), var(--ifm-color-primary-lighter));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  
+
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
+  position: relative;
 }
 
-/* Dark mode title adjustment handled by global CSS mostly, but we can ensure specific override here if needed */
+/* Dark mode title adjustment */
 [data-theme='dark'] .heroTitle {
-  background: linear-gradient(135deg, #ffffff, var(--ifm-color-primary-light));
+  background: linear-gradient(135deg, #ffffff, var(--ifm-color-primary));
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .heroSubtitle {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   color: var(--ifm-color-content);
   opacity: 0;
   margin-bottom: 2.5rem;
+  max-width: 600px;
   animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  line-height: 1.6;
 }
 
 .buttons {
   display: flex;
-  justify-content: flex-start; /* Left align buttons */
-  gap: 1rem;
+  justify-content: flex-start;
+  gap: 1.5rem;
   opacity: 0;
   animation: fadeInUp 0.8s ease-out 0.4s forwards;
 }
 
+/* Enhanced button animations */
+.buttons a {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.buttons a:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(var(--ifm-color-primary-rgb), 0.3);
+}
+
+.buttons a::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.buttons a:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.buttons a:active {
+  transform: translateY(-1px);
+}
+
 /* Animations */
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0px); }
+@keyframes float-enhanced {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@keyframes float-orb {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -88,22 +186,49 @@
 /* Responsive Adjustments */
 @media screen and (max-width: 996px) {
   .heroBanner {
-    padding: 3rem 1rem;
+    padding: 4rem 1.5rem;
     text-align: center;
+  }
+
+  .heroBanner::before,
+  .heroBanner::after {
+    width: 300px;
+    height: 300px;
   }
 
   .heroTextCol {
     align-items: center;
     padding-right: 0;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
+  }
+
+  .heroSubtitle {
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .buttons {
     justify-content: center;
     flex-wrap: wrap;
   }
-  
+
+  .heroTitle {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
   .heroTitle {
     font-size: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.2rem;
+  }
+
+  .heroBanner::before,
+  .heroBanner::after {
+    width: 200px;
+    height: 200px;
   }
 }

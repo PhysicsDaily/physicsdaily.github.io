@@ -6,6 +6,7 @@ maxWidth: 1200px
 ---
 
 import {ResourceCard, ResourceGrid} from '@site/src/components/ResourceCard';
+import {TextbookSVG, AdvancedSVG, VideoSVG, ToolsSVG, ProblemSVG, CodeSVG} from '@site/src/components/ResourceCard/ResourceSvgs';
 
 # Physics Resources 📚
 
@@ -19,7 +20,7 @@ A curated collection of the best tools, books, and video content to help you mas
     author="Young & Freedman"
     description="The gold standard for introductory university physics. Balanced and comprehensive with excellent problem sets."
     link="https://www.amazon.com/University-Physics-Modern-14th/dp/0321973615"
-    icon="📘"
+    icon={<TextbookSVG />}
     tag="Introductory"
   />
   <ResourceCard
@@ -27,7 +28,7 @@ A curated collection of the best tools, books, and video content to help you mas
     author="Halliday, Resnick, & Krane"
     description="A more rigorous and deep alternative to 'Fundamentals'. Highly recommended for physics majors."
     link="https://www.amazon.com/Physics-Vol-1-Resnick/dp/0471320579"
-    icon="📕"
+    icon={<TextbookSVG />}
     tag="Advanced Intro"
   />
   <ResourceCard
@@ -35,7 +36,7 @@ A curated collection of the best tools, books, and video content to help you mas
     author="Richard Feynman"
     description="Legendary lectures focusing on intuition and deep conceptual understanding. Free online."
     link="https://www.feynmanlectures.caltech.edu/"
-    icon="🧠"
+    icon={<TextbookSVG />}
     tag="Conceptual"
   />
 </ResourceGrid>
@@ -48,7 +49,7 @@ A curated collection of the best tools, books, and video content to help you mas
     author="David Morin"
     description="Famous for its challenging problems and limericks. Essential for competitions."
     link="https://www.amazon.com/Introduction-Classical-Mechanics-Problems-Solutions/dp/0521876222"
-    icon="⚙️"
+    icon={<AdvancedSVG />}
     tag="Mechanics"
   />
   <ResourceCard
@@ -56,7 +57,7 @@ A curated collection of the best tools, books, and video content to help you mas
     author="John R. Taylor"
     description="The clearest intermediate mechanics text. Excellent for Lagrangian & Hamiltonian mechanics."
     link="https://www.amazon.com/Classical-Mechanics-John-R-Taylor/dp/189138922X"
-    icon="🎢"
+    icon={<AdvancedSVG />}
     tag="Mechanics"
   />
   <ResourceCard
@@ -64,7 +65,7 @@ A curated collection of the best tools, books, and video content to help you mas
     author="David J. Griffiths"
     description="The absolute standard for undergraduate E&M. Engaging, clear, and essential."
     link="https://www.amazon.com/Introduction-Electrodynamics-David-J-Griffiths/dp/1108420419"
-    icon="⚡"
+    icon={<AdvancedSVG />}
     tag="Electromagnetism"
   />
   <ResourceCard
@@ -72,7 +73,7 @@ A curated collection of the best tools, books, and video content to help you mas
     author="David J. Griffiths"
     description="Standard entry point for undergraduate QM. Clear explanations and good problems."
     link="https://www.amazon.com/Introduction-Quantum-Mechanics-David-Griffiths/dp/1107189632"
-    icon="⚛️"
+    icon={<AdvancedSVG />}
     tag="Quantum"
   />
 </ResourceGrid>
@@ -84,21 +85,21 @@ A curated collection of the best tools, books, and video content to help you mas
     title="3Blue1Brown"
     description="Beautiful animations explaining math and physics concepts. The gold standard for visualization."
     link="https://www.youtube.com/c/3blue1brown"
-    icon="🎥"
+    icon={<VideoSVG />}
     tag="Visuals"
   />
   <ResourceCard
     title="Walter Lewin (MIT)"
     description="Classic physics lectures with unmatched demonstrations. 8.01 (Mech) & 8.02 (E&M)."
     link="https://www.youtube.com/channel/UCiEHVhv0SBMpP75JbzJShqw"
-    icon="🎓"
+    icon={<VideoSVG />}
     tag="Lectures"
   />
   <ResourceCard
     title="PBS Space Time"
     description="Deep dives into astrophysics and quantum mechanics at a high conceptual level."
     link="https://www.youtube.com/c/pbsspacetime"
-    icon="🚀"
+    icon={<VideoSVG />}
     tag="Astrophysics"
   />
   <ResourceCard
@@ -106,7 +107,7 @@ A curated collection of the best tools, books, and video content to help you mas
     author="Leonard Susskind"
     description="Stanford lectures designed to teach 'the real stuff' without watering it down."
     link="https://www.youtube.com/user/SusskindLectures"
-    icon="👨‍🏫"
+    icon={<VideoSVG />}
     tag="Deep Dive"
   />
 </ResourceGrid>
@@ -118,28 +119,28 @@ A curated collection of the best tools, books, and video content to help you mas
     title="PhET Simulations"
     description="Interactive labs for almost every physics topic. Great for visualizing abstract concepts."
     link="https://phet.colorado.edu/"
-    icon="🧪"
+    icon={<ToolsSVG />}
     tag="Simulation"
   />
   <ResourceCard
     title="WolframAlpha"
     description="Computational intelligence. Solves integrals, derivatives, and complex physics equations."
     link="https://www.wolframalpha.com/"
-    icon="wv"
+    icon={<ToolsSVG />}
     tag="Calculator"
   />
   <ResourceCard
     title="Desmos"
     description="Powerful graphing calculator. Perfect for visualizing functions and data."
     link="https://www.desmos.com/calculator"
-    icon="📈"
+    icon={<ToolsSVG />}
     tag="Graphing"
   />
   <ResourceCard
     title="Falstad Circuit Sim"
     description="Visualize current flow in electrical circuits in real-time."
     link="https://www.falstad.com/circuit/"
-    icon="🔋"
+    icon={<ToolsSVG />}
     tag="Simulation"
   />
 </ResourceGrid>
@@ -152,14 +153,14 @@ A curated collection of the best tools, books, and video content to help you mas
     author="I.E. Irodov"
     description="Problems in General Physics. Legendary for its difficulty. A rite of passage."
     link="https://www.amazon.com/Problems-General-Physics-I-Irodov/dp/8176223390"
-    icon="💪"
+    icon={<ProblemSVG />}
     tag="Hardcore"
   />
   <ResourceCard
     title="HyperPhysics"
     description="An interconnected 'mind map' of physics concepts. Quick and reliable reference."
     link="http://hyperphysics.phy-astr.gsu.edu/hbase/index.html"
-    icon="🕸️"
+    icon={<ProblemSVG />}
     tag="Reference"
   />
 </ResourceGrid>
@@ -171,14 +172,14 @@ A curated collection of the best tools, books, and video content to help you mas
     title="GlowScript"
     description="Easiest way to start coding 3D physics simulations in the browser using VPython."
     link="https://www.glowscript.org/"
-    icon="🐍"
+    icon={<CodeSVG />}
     tag="Python"
   />
   <ResourceCard
     title="NumPy & SciPy"
     description="The industry standard Python libraries for scientific computing and data analysis."
     link="https://scipy.org/"
-    icon="📊"
+    icon={<CodeSVG />}
     tag="Python"
   />
 </ResourceGrid>

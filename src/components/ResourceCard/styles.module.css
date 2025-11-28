@@ -2,81 +2,265 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 1.5rem;
+  padding: 1.75rem;
   border: 1px solid var(--ifm-color-emphasis-200);
-  border-radius: 12px;
-  background: var(--ifm-background-surface-color);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  border-radius: 16px;
+  background: var(--ifm-card-background-color);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   text-decoration: none !important;
   color: var(--ifm-color-content);
   position: relative;
   overflow: hidden;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Shimmer effect overlay */
+.resourceCard::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  transform: rotate(45deg);
+}
+
+[data-theme='dark'] .resourceCard::before {
+  background: linear-gradient(45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.05) 50%,
+      transparent 70%);
+}
+
+.resourceCard:hover::before {
+  opacity: 1;
+  animation: shimmer 1.5s ease-in-out;
+}
+
+/* Animated gradient border */
+.resourceCard::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(60deg,
+      var(--ifm-color-primary-dark),
+      var(--ifm-color-primary),
+      var(--ifm-color-primary-light),
+      var(--ifm-color-primary),
+      var(--ifm-color-primary-dark));
+  background-size: 300% 300%;
+  border-radius: 16px;
+  opacity: 0;
+  z-index: -1;
+  animation: gradient-flow 4s linear infinite;
+  transition: opacity 0.4s ease;
+}
+
+.resourceCard:hover::after {
+  opacity: 1;
 }
 
 .resourceCard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  border-color: var(--ifm-color-primary);
-  color: var(--ifm-color-content);
+  transform: translateY(-8px) rotateX(2deg);
+  box-shadow: 0 20px 40px rgba(var(--ifm-color-primary-rgb), 0.2),
+    0 0 0 1px rgba(var(--ifm-color-primary-rgb), 0.5);
+  border-color: transparent;
 }
 
 .cardHeader {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .iconWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background: rgba(126, 140, 224, 0.1);
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg,
+      rgba(var(--ifm-color-primary-rgb), 0.15),
+      rgba(var(--ifm-color-primary-rgb), 0.05));
   color: var(--ifm-color-primary);
-  font-size: 1.25rem;
   flex-shrink: 0;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Icon glow effect */
+.iconWrapper::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: radial-gradient(circle,
+      rgba(var(--ifm-color-primary-rgb), 0.4) 0%,
+      transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.resourceCard:hover .iconWrapper::before {
+  opacity: 1;
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+.resourceCard:hover .iconWrapper {
+  transform: scale(1.15) rotate(-5deg);
+  background: linear-gradient(135deg,
+      rgba(var(--ifm-color-primary-rgb), 0.25),
+      rgba(var(--ifm-color-primary-rgb), 0.1));
+}
+
+.iconWrapper svg {
+  width: 28px;
+  height: 28px;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.resourceCard:hover .iconWrapper svg {
+  transform: rotateY(360deg);
 }
 
 .title {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  margin: 0;
+  margin: 0 0 0.25rem 0;
   line-height: 1.3;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+.resourceCard:hover .title {
+  color: var(--ifm-color-primary);
 }
 
 .author {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--ifm-color-emphasis-600);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   font-weight: 500;
+  position: relative;
+  z-index: 1;
 }
 
 .description {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--ifm-color-emphasis-700);
   margin: 0;
   flex-grow: 1;
-  line-height: 1.5;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
 }
 
 .tag {
   display: inline-block;
-  margin-top: 1rem;
-  padding: 0.25rem 0.75rem;
+  margin-top: 1.25rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 20px;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   background: var(--ifm-color-emphasis-100);
   color: var(--ifm-color-emphasis-700);
   align-self: flex-start;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.resourceCard:hover .tag {
+  background: var(--ifm-color-primary-lightest);
+  color: var(--ifm-color-primary-dark);
+  transform: scale(1.05);
+  animation: tag-pulse 1s ease-in-out infinite;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  padding: 0.5rem;
+  /* Prevent shadow clipping */
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+
+  100% {
+    transform: translateX(100%) translateY(100%) rotate(45deg);
+  }
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes tag-pulse {
+
+  0%,
+  100% {
+    transform: scale(1.05);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .resourceCard:hover {
+    transform: translateY(-6px) rotateX(0deg);
+  }
 }
