@@ -7,6 +7,29 @@ import HomepageFeatures from '@site/src/components/HomepageFeatures';
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
+function StatsSection() {
+  return (
+    <section className={styles.statsSection}>
+      <div className="container">
+        <div className={styles.statsGrid}>
+          <div className={styles.statItem}>
+            <div className={styles.statNumber}>45+</div>
+            <div className={styles.statLabel}>Topics Covered</div>
+          </div>
+          <div className={styles.statItem}>
+            <div className={styles.statNumber}>7</div>
+            <div className={styles.statLabel}>Physics Branches</div>
+          </div>
+          <div className={styles.statItem}>
+            <div className={styles.statNumber}>100%</div>
+            <div className={styles.statLabel}>Free Forever</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -32,13 +55,13 @@ function HomepageHeader() {
             </div>
           </div>
           <div className={clsx('col col--5', styles.heroImageCol)}>
-            {/* Static image removed as per user request */}
+            {/* Einstein/Newton floating images are positioned via CSS */}
           </div>
         </div>
       </div>
       {/* Floating Particles */}
-      <img src={require('@site/static/img/floating-einstein.png').default} className={clsx(styles.floatingParticle, styles.particleEinstein)} alt="Floating Einstein" />
-      <img src={require('@site/static/img/floating-newton.png').default} className={clsx(styles.floatingParticle, styles.particleNewton)} alt="Floating Newton" />
+      <img src={require('@site/static/img/floating-einstein.png').default} className={clsx(styles.floatingParticle, styles.particleEinstein)} alt="Albert Einstein floating illustration" />
+      <img src={require('@site/static/img/floating-newton.png').default} className={clsx(styles.floatingParticle, styles.particleNewton)} alt="Isaac Newton floating illustration" />
     </header>
   );
 }
@@ -51,6 +74,7 @@ export default function Home() {
       description="Understand physics deeply through intuitive explanations, visual exploration, and interactive learning.">
       <HomepageHeader />
       <main>
+        <StatsSection />
         <HomepageFeatures />
       </main>
     </Layout>

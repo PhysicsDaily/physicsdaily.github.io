@@ -33,13 +33,14 @@ $$
 In component form:
 
 $$
-Rx = Ax + Bx \
-Ry = Ay + By
+R_x = A_x + B_x \\
+R_y = A_y + B_y
 $$
 
 The magnitude of the resultant vector is:
 
-$$|→R| = √{Rx^2 + Ry^2}
+$$
+|\vec{R}| = \sqrt{R_x^2 + R_y^2}
 $$ 
 
 </Section>
