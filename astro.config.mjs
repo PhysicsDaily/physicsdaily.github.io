@@ -67,7 +67,7 @@ export default defineConfig({
 				{
 					tag: 'script',
 					attrs: {
-						src: 'https://www.googletagmanager.com/gtag/js?id=G-P08V4L3DF9',
+						src: 'https://www.googletagmanager.com/gtag/js?id=G-NEB8S7WNYL',
 						async: true,
 					},
 				},
@@ -77,7 +77,7 @@ export default defineConfig({
 	window.dataLayer = window.dataLayer || [];
 	function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());
-	gtag('config', 'G-P08V4L3DF9');
+	gtag('config', 'G-NEB8S7WNYL');
 }`,
 				},
 				// Cloudflare Web Analytics — free, ~4KB, deferred module so it never
