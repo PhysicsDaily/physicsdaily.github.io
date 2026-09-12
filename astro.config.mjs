@@ -28,6 +28,15 @@ export default defineConfig({
 	// link or type — sends the reader to the section the chapter begins at.
 	redirects: {
 		'/mechanics/chapter-2-kinematics': `${basePrefix}/mechanics/chapter-2-kinematics/introduction-to-kinematics/`,
+		'/electromagnetism': `${basePrefix}/coming-soon/`,
+		'/electromagnetism/current-resistance-emf': `${basePrefix}/coming-soon/`,
+		'/electromagnetism/capacitance-dielectrics': `${basePrefix}/coming-soon/`,
+		'/optics': `${basePrefix}/coming-soon/`,
+		'/optics/diffraction': `${basePrefix}/coming-soon/`,
+		'/optics/chapter44': `${basePrefix}/coming-soon/`,
+		'/thermodynamics': `${basePrefix}/coming-soon/`,
+		'/thermodynamics/temperature-heat': `${basePrefix}/coming-soon/`,
+		'/modern': `${basePrefix}/coming-soon/`,
 	},
 	integrations: [
 		starlight({
@@ -53,8 +62,7 @@ export default defineConfig({
 				ThemeSelect: './src/components/overrides/ThemeSelect.astro',
 			},
 			routeMiddleware: './src/starlightRouteData.ts',
-			// Google Analytics 4 — loads on every page. The tag is async, so it never
-			// blocks rendering. Stats stay private in the GA4 dashboard.
+			// Google Analytics 4 — loads on real production pages. Excludes localhost and 127.0.0.1.
 			head: [
 				{
 					tag: 'script',
@@ -65,10 +73,12 @@ export default defineConfig({
 				},
 				{
 					tag: 'script',
-					content: `window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'G-P08V4L3DF9');`,
+					content: `if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-P08V4L3DF9');
+}`,
 				},
 				// Cloudflare Web Analytics — free, ~4KB, deferred module so it never
 				// blocks rendering. More resistant to adblockers than gtag.js, so the

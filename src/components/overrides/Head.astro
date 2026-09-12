@@ -11,8 +11,32 @@ import { getDailyFeature } from '../../data/quotes';
 import sourceSerifWoff2 from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url';
 import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 
-const { head, entry } = Astro.locals.starlightRoute;
-const isHome = Boolean(entry?.data?.hero);
+const { head, entry, id } = Astro.locals.starlightRoute;
+const is404 =
+	id === '404' ||
+	entry?.id === '404' ||
+	entry?.id?.endsWith('/404') ||
+	Astro.url.pathname === '/404/' ||
+	Astro.url.pathname === '/404';
+
+// Exclude analytics on 404 pages and in local dev so automated bot scanners and localhost testing
+// don't corrupt real visitor metrics, bounce rates, or engagement times.
+const isDev = import.meta.env.DEV;
+const headTags = is404 || isDev
+	? head.filter((tag) => {
+			const src = tag.attrs?.src ? String(tag.attrs.src) : '';
+			const content = tag.content ? String(tag.content) : '';
+			const isAnalytics =
+				src.includes('googletagmanager.com') ||
+				src.includes('cloudflareinsights.com') ||
+				content.includes('gtag') ||
+				content.includes('G-P08V4L3DF9') ||
+				content.includes('cloudflareinsights');
+			return !isAnalytics;
+	  })
+	: head;
+
+const isHome = !is404 && Boolean(entry?.data?.hero);
 
 let heroPreload: Awaited<ReturnType<typeof getImage>> | undefined;
 if (isHome) {
@@ -36,7 +60,29 @@ const siteNameSchema = {
 };
 ---
 
-{head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+{headTags.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+{is404 && <meta name="robots" content="noindex, nofollow" />}
+{
+	is404 && (
+		<script is:inline define:vars={{ basePrefix }}>
+			(() => {
+				const path = window.location.pathname.toLowerCase();
+				const upcomingBranches = [
+					'/electromagnetism',
+					'/electrodynamics',
+					'/optics',
+					'/thermodynamics',
+					'/modern',
+					'/oscillations',
+					'/waves',
+				];
+				if (upcomingBranches.some((branch) => path.includes(branch))) {
+					window.location.replace(`${basePrefix}/coming-soon/`);
+				}
+			})();
+		</script>
+	)
+}
 <link rel="icon" type="image/png" sizes="48x48" href={`${basePrefix}/favicon-48x48.png`} />
 <link rel="icon" type="image/png" sizes="32x32" href={`${basePrefix}/favicon-32x32.png`} />
 <link rel="icon" type="image/png" sizes="16x16" href={`${basePrefix}/favicon-16x16.png`} />
