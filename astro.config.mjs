@@ -83,13 +83,17 @@ export default defineConfig({
 				// Cloudflare Web Analytics — free, ~4KB, deferred module so it never
 				// blocks rendering. More resistant to adblockers than gtag.js, so the
 				// Cloudflare dashboard is the accurate count; GA4 is the deep detail.
+				// Loaded conditionally (not via static attrs) so dev sessions on
+				// localhost/127.0.0.1 never report to Cloudflare, matching the gtag guard.
 				{
 					tag: 'script',
-					attrs: {
-						type: 'module',
-						src: 'https://static.cloudflareinsights.com/beacon.min.js',
-						'data-cf-beacon': '{"token": "d9af8c2cb2c2421392420889bf7212d4"}',
-					},
+					content: `if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+  var cf = document.createElement('script');
+  cf.type = 'module';
+  cf.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  cf.setAttribute('data-cf-beacon', '{"token": "d9af8c2cb2c2421392420889bf7212d4"}');
+  document.head.appendChild(cf);
+}`,
 				},
 			],
 			customCss: [
