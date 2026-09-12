@@ -1,0 +1,6 @@
+# Allow all crawlers. Site is fully public educational content.
+User-agent: *
+Allow: /
+
+# Point crawlers at the sitemap (helps discovery when Search Console is slow)
+Sitemap: https://physicsdaily.github.io/sitemap-index.xml
