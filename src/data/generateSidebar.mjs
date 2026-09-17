@@ -127,7 +127,9 @@ export function generateSidebar(directory) {
 		...files.map((file) => {
 			const path = join(root, file);
 			const frontmatter = parseFrontmatter(path);
-			const { label, title, order } = frontmatter;
+			const label = frontmatter.sidebar?.label ?? frontmatter.label;
+			const order = frontmatter.sidebar?.order ?? frontmatter.order;
+			const { title } = frontmatter;
 			// The collection schema checks these fields too, but it reports against the
 			// parsed page while the sidebar reads the raw file — validate here as well so
 			// the two cannot disagree about what the sidebar shows.

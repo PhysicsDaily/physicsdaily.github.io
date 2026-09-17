@@ -15,6 +15,7 @@
 	--sl-color-gray-4: #565b64;
 	--sl-color-gray-5: #2b2f36;
 	--sl-color-gray-6: #191c21;
+	--sl-color-gray-7: #171a1f;
 	--sl-color-black: #101317;
 
 	--sl-color-accent-low: #172440;
@@ -49,6 +50,7 @@
 	--sl-color-accent: #1c46b4;
 	--sl-color-accent-high: #10306e;
 
+	--sl-color-bg-nav: var(--pd-surface);
 	--pd-rule: #e4dfd3;
 	--pd-rule-strong: #c9c2b3;
 	--pd-surface: #f7f4ec;
@@ -423,12 +425,6 @@ h1[data-page-title],
 
 .pd-feedback__req {
 	color: var(--sl-color-accent);
-}
-
-.pd-feedback__opt {
-	font-size: var(--sl-text-xs);
-	font-weight: 400;
-	color: var(--sl-color-gray-3);
 }
 
 .pd-feedback__input,
