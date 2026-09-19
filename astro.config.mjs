@@ -31,16 +31,12 @@ export default defineConfig({
 		'/electromagnetism': `${basePrefix}/coming-soon/`,
 		'/electromagnetism/current-resistance-emf': `${basePrefix}/coming-soon/`,
 		'/electromagnetism/capacitance-dielectrics': `${basePrefix}/coming-soon/`,
-		'/electrodynamics': `${basePrefix}/coming-soon/`,
 		'/optics': `${basePrefix}/coming-soon/`,
 		'/optics/diffraction': `${basePrefix}/coming-soon/`,
 		'/optics/chapter44': `${basePrefix}/coming-soon/`,
 		'/thermodynamics': `${basePrefix}/coming-soon/`,
 		'/thermodynamics/temperature-heat': `${basePrefix}/coming-soon/`,
 		'/modern': `${basePrefix}/coming-soon/`,
-		'/modern-physics': `${basePrefix}/coming-soon/`,
-		'/oscillations': `${basePrefix}/coming-soon/`,
-		'/waves': `${basePrefix}/coming-soon/`,
 	},
 	integrations: [
 		starlight({
@@ -67,16 +63,17 @@ export default defineConfig({
 			},
 			routeMiddleware: './src/starlightRouteData.ts',
 			// Google Analytics 4 — loads on real production pages. Excludes localhost and 127.0.0.1.
-			// Loaded conditionally (not via static attrs) so dev sessions on
-			// localhost/127.0.0.1 never report or load gtag.js, matching Cloudflare.
 			head: [
 				{
 					tag: 'script',
+					attrs: {
+						src: 'https://www.googletagmanager.com/gtag/js?id=G-NEB8S7WNYL',
+						async: true,
+					},
+				},
+				{
+					tag: 'script',
 					content: `if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-	var ga = document.createElement('script');
-	ga.async = true;
-	ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-NEB8S7WNYL';
-	document.head.appendChild(ga);
 	window.dataLayer = window.dataLayer || [];
 	function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());

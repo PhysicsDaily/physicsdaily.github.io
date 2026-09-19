@@ -13,12 +13,7 @@ const facts = 'facts' in data ? ((data.facts as string[] | undefined) ?? []) : [
 
 // Fixed at build time, so the daily rebuild is what advances it. Deliberately
 // not randomised on the client: that would swap the portrait after first paint.
-const is404 =
-	Astro.locals.starlightRoute.id === '404' ||
-	Astro.locals.starlightRoute.entry?.id === '404';
-const dailyFeature = !is404 ? getDailyFeature() : null;
-const scientist = dailyFeature?.scientist;
-const quote = dailyFeature?.quote;
+const { scientist, quote } = getDailyFeature();
 
 // Starlight's page-title anchor target, used by the skip link and search.
 const PAGE_TITLE_ID = '_top';
@@ -59,32 +54,30 @@ const PAGE_TITLE_ID = '_top';
 			}
 		</div>
 
-		{!is404 && scientist && quote && (
-			<figure class="pd-figure pd-figure--quote">
-				<Image
-					class="pd-portrait"
-					src={scientist.portrait}
-					alt={`Portrait of ${scientist.name}.`}
-					widths={[380, 500, 760]}
-					sizes="(min-width: 56rem) 25rem, min(25rem, 90vw)"
-					quality={78}
-					style={`object-position: ${scientist.focus}`}
-					loading="eager"
-					fetchpriority="high"
-				/>
-				<figcaption>
-					<blockquote class="pd-quote">“{quote.text}”</blockquote>
-					<p class="pd-quote__by">
-						<span class="pd-quote__name">{scientist.name}</span>
-						<span class="pd-quote__lived">{scientist.lived} · {scientist.field}</span>
-						<span class="pd-quote__src">
-							{quote.reported ? 'As ' : ''}{quote.source}, {quote.year}
-							{quote.translated ? ' (translated)' : ''}
-						</span>
-					</p>
-					<p class="pd-quote__credit">{scientist.credit}</p>
-				</figcaption>
-			</figure>
-		)}
+		<figure class="pd-figure pd-figure--quote">
+			<Image
+				class="pd-portrait"
+				src={scientist.portrait}
+				alt={`Portrait of ${scientist.name}.`}
+				widths={[380, 500, 760]}
+				sizes="(min-width: 56rem) 25rem, min(25rem, 90vw)"
+				quality={78}
+				style={`object-position: ${scientist.focus}`}
+				loading="eager"
+				fetchpriority="high"
+			/>
+			<figcaption>
+				<blockquote class="pd-quote">“{quote.text}”</blockquote>
+				<p class="pd-quote__by">
+					<span class="pd-quote__name">{scientist.name}</span>
+					<span class="pd-quote__lived">{scientist.lived} · {scientist.field}</span>
+					<span class="pd-quote__src">
+						{quote.reported ? 'As ' : ''}{quote.source}, {quote.year}
+						{quote.translated ? ' (translated)' : ''}
+					</span>
+				</p>
+				<p class="pd-quote__credit">{scientist.credit}</p>
+			</figcaption>
+		</figure>
 	</section>
 </div>

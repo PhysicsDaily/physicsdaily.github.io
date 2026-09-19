@@ -17,27 +17,19 @@ export const onRequest = defineRouteMiddleware(async (context, next) => {
 
 	const route = context.locals.starlightRoute;
 
-	// Set page title to just the page's title on the homepage to avoid "PhysicsDaily | PhysicsDaily"
-	const isHome =
-		route.id === '' ||
-		route.id === 'index' ||
-		route.entry?.id === 'index.mdx' ||
-		route.entry?.id === 'index' ||
-		Boolean(route.entry?.data?.hero && route.entry?.data?.template === 'splash');
-	if (isHome) {
-		const titleTag = route.head.find((tag) => tag.tag === 'title');
-		if (titleTag && route.entry?.data?.title) {
-			titleTag.content = route.entry.data.title;
-		}
+	// Set page title to just the page's title without the "| SiteTitle" suffix
+	const titleTag = route.head.find((tag) => tag.tag === 'title');
+	if (titleTag && route.entry?.data?.title) {
+		titleTag.content = route.entry.data.title;
 	}
 
 	// Splash pages stand outside the reading flow; the homepage also reads the full
 	// sidebar to count its curriculum's chapters, so it must not be narrowed even if
 	// a Home link is ever added to it.
-	if (route.entry?.data?.template === 'splash') return;
+	if (route.entry.data.template === 'splash') return;
 
-	const branch = route.sidebar?.find(holdsCurrentPage);
-	if (!branch || branch.type !== 'group') return;
+	const branch = route.sidebar.find(holdsCurrentPage);
+	if (!branch) return;
 
-	route.sidebar = [{ ...branch, collapsed: false }];
+	route.sidebar = [branch.type === 'group' ? { ...branch, collapsed: false } : branch];
 });

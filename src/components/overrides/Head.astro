@@ -66,22 +66,17 @@ const siteNameSchema = {
 	is404 && (
 		<script is:inline define:vars={{ basePrefix }}>
 			(() => {
-				const fullPath = window.location.pathname.toLowerCase();
-				const normalizedBase = (basePrefix || '').toLowerCase();
-				const path = normalizedBase && fullPath.startsWith(normalizedBase)
-					? fullPath.slice(normalizedBase.length)
-					: fullPath;
+				const path = window.location.pathname.toLowerCase();
 				const upcomingBranches = [
 					'/electromagnetism',
 					'/electrodynamics',
 					'/optics',
 					'/thermodynamics',
 					'/modern',
-					'/modern-physics',
 					'/oscillations',
 					'/waves',
 				];
-				if (upcomingBranches.some((branch) => path === branch || path.startsWith(branch + '/'))) {
+				if (upcomingBranches.some((branch) => path.includes(branch))) {
 					window.location.replace(`${basePrefix}/coming-soon/`);
 				}
 			})();
