@@ -1,5 +1,6 @@
 ---
 import MobileMenuToggle from '@astrojs/starlight/components/MobileMenuToggle.astro';
+import { site } from '../../site.config';
 
 const { hasSidebar } = Astro.locals.starlightRoute;
 ---
@@ -33,7 +34,8 @@ const { hasSidebar } = Astro.locals.starlightRoute;
 </div>
 
 <script>
-	const storageKey = 'physicsdaily-sidebar-collapsed';
+	import { site } from '../../site.config';
+	const storageKey = site.sidebarStorageKey;
 
 	class PhysicsDailySidebarToggle extends HTMLElement {
 		button = this.querySelector('button')!;

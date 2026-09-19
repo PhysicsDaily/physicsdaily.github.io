@@ -1,12 +1,14 @@
 ---
 import { Icon } from '@astrojs/starlight/components';
+import { site } from '../../site.config';
+const sidebarKey = site.sidebarStorageKey;
 ---
 
 {/* This is intentionally inlined to avoid FOUC. */}
-<script is:inline>
+<script is:inline define:vars={{ sidebarKey }}>
 	(() => {
 		try {
-			if (localStorage.getItem('physicsdaily-sidebar-collapsed') === 'true') {
+			if (localStorage.getItem(sidebarKey) === 'true') {
 				document.documentElement.setAttribute('data-sidebar-collapsed', '');
 			}
 		} catch {}
