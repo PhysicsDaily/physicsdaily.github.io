@@ -4,6 +4,9 @@ description: Locating a body on a coordinate axis
 order: 2
 ---
 
+import Callout from '../../../../components/ui/Callout.astro';
+import FormulaCard from '../../../../components/ui/FormulaCard.astro';
+
 ## Definition
 
 In mechanics, position denotes where a particle is in space. 
@@ -38,7 +41,11 @@ _Figure 2: Position vector_ $\vec{r}$ _drawn from origin_ $O$ _to point_ $P(x, y
 
 </div>
 
-> The SI unit of position is meter ($\text{m}$), and its dimension is $[\text{L}]$.  
+<Callout type="definition" title="Units and Dimensions">
+
+The SI unit of position is meter ($\text{m}$), and its dimension is $[\text{L}]$.
+
+</Callout>
 
 It is a **vector quantity**, meaning it requires both magnitude and direction to be defined.
 It is generally represented by $\vec{r}$ (or in bold as $\mathbf{r}$).
@@ -61,7 +68,14 @@ _Figure 3: Position vector_ $\vec{r}$ _of point_ $P(x, y, z)$ _in a 3D Cartesian
 </figure>
 
 **The position vector of a particle in 3D is defined as:**
-> $$\vec{r} = x\hat{i} + y\hat{j} + z\hat{k}$$
+
+<FormulaCard title="Position Vector in 3D" label="Formula">
+
+$$
+\vec{r} = x\hat{i} + y\hat{j} + z\hat{k}
+$$
+
+</FormulaCard>
 
 The position of a particle has no absolute meaning if there is no coordinate system.
 If we change the coordinate system, the position vector of the particle also changes even if it is stationary with respect to the ground.
@@ -70,10 +84,23 @@ If we change the coordinate system, the position vector of the particle also cha
 
 The magnitude refers to the length of the vector or distance of the particle from the origin or from the observer.
 Given the coordinates of a particle $(x, y, z)$ with the observer at the origin, the magnitude (or length) of the position vector is calculated as:
-> $$r = |\vec{r}| = \sqrt{\rule{0pt}{2.7ex}x^2 + y^2 + z^2}$$
+
+<FormulaCard title="Magnitude from Origin" label="Magnitude">
+
+$$
+r = |\vec{r}| = \sqrt{\rule{0pt}{2.7ex}x^2 + y^2 + z^2}
+$$
+
+</FormulaCard>
 
 But if the observer is not at the origin, the magnitude of the position vector relative to the observer is given by:
-> $$|\vec{r} - \vec{r}_0| = \sqrt{\rule{0pt}{2.7ex}(x - x_0)^2 + (y - y_0)^2 + (z - z_0)^2}$$
 
-where $(x, y, z)$ are the coordinates of the particle
-and $(x_0, y_0, z_0)$ are the coordinates of the observer.
+<FormulaCard title="Relative Magnitude" label="Relative Position">
+
+$$
+|\vec{r} - \vec{r}_0| = \sqrt{\rule{0pt}{2.7ex}(x - x_0)^2 + (y - y_0)^2 + (z - z_0)^2}
+$$
+
+where $(x, y, z)$ are the coordinates of the particle and $(x_0, y_0, z_0)$ are the coordinates of the observer.
+
+</FormulaCard>

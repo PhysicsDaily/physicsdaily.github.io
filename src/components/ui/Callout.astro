@@ -1,0 +1,123 @@
+---
+interface Props {
+	type?: 'note' | 'tip' | 'warning' | 'definition';
+	title?: string;
+}
+
+const { type = 'note', title } = Astro.props;
+
+const defaultTitles = {
+	note: 'Note',
+	tip: 'Key Intuition',
+	warning: 'Common Pitfall',
+	definition: 'Definition',
+};
+
+const displayTitle = title ?? defaultTitles[type];
+---
+
+<div class={`pd-callout pd-callout--${type} not-content`}>
+	<div class="pd-callout__header">
+		<span class="pd-callout__icon" aria-hidden="true">
+			{type === 'note' && (
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<circle cx="12" cy="12" r="10" />
+					<line x1="12" y1="16" x2="12" y2="12" />
+					<line x1="12" y1="8" x2="12.01" y2="8" />
+				</svg>
+			)}
+			{type === 'tip' && (
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+				</svg>
+			)}
+			{type === 'warning' && (
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+					<line x1="12" y1="9" x2="12" y2="13" />
+					<line x1="12" y1="17" x2="12.01" y2="17" />
+				</svg>
+			)}
+			{type === 'definition' && (
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
+					<path d="M6 6h10M6 10h10" />
+				</svg>
+			)}
+		</span>
+		<strong class="pd-callout__title">{displayTitle}</strong>
+	</div>
+	<div class="pd-callout__body">
+		<slot />
+	</div>
+</div>
+
+<style>
+	.pd-callout {
+		margin: 1.75rem 0;
+		padding: 1.15rem 1.35rem;
+		background: var(--pd-surface);
+		border: 1px solid var(--pd-rule);
+		border-left: 3px solid var(--sl-color-accent);
+		border-radius: var(--pd-radius);
+		font-size: 0.96rem;
+		line-height: 1.65;
+		color: var(--sl-color-gray-1);
+	}
+
+	.pd-callout--tip {
+		border-left-color: var(--sl-color-accent);
+		background: color-mix(in srgb, var(--sl-color-accent) 4%, var(--pd-surface));
+	}
+
+	.pd-callout--warning {
+		border-left-color: #d97706;
+		background: color-mix(in srgb, #d97706 5%, var(--pd-surface));
+	}
+
+	.pd-callout--definition {
+		border-left-color: var(--sl-color-gray-2);
+	}
+
+	.pd-callout__header {
+		display: flex;
+		align-items: center;
+		gap: 0.55rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.pd-callout__icon {
+		display: flex;
+		align-items: center;
+		color: var(--sl-color-accent);
+	}
+
+	.pd-callout--warning .pd-callout__icon {
+		color: #d97706;
+	}
+
+	.pd-callout--definition .pd-callout__icon {
+		color: var(--sl-color-gray-2);
+	}
+
+	.pd-callout__title {
+		font-family: var(--sl-font);
+		font-size: 0.85rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--sl-color-white);
+	}
+
+	.pd-callout__body :global(p) {
+		margin: 0.4rem 0;
+	}
+
+	.pd-callout__body :global(p:first-child) {
+		margin-top: 0;
+	}
+
+	.pd-callout__body :global(p:last-child) {
+		margin-bottom: 0;
+	}
+</style>

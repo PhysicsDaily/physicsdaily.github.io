@@ -1,0 +1,182 @@
+---
+interface Props {
+	title: string;
+	label?: string;
+	description?: string;
+	note?: string;
+}
+
+const { title, label = 'Formula', description, note } = Astro.props;
+---
+
+<div class="pd-formula-card">
+	<div class="pd-formula-card__header">
+		<span class="pd-formula-card__badge">
+			<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<path d="M4 7V4h16v3M9 20h6M12 4v16" />
+			</svg>
+			{label}
+		</span>
+		<h4 class="pd-formula-card__title">{title}</h4>
+	</div>
+
+	{description && <p class="pd-formula-card__desc">{description}</p>}
+
+	<div class="pd-formula-card__body">
+		<slot />
+	</div>
+
+	{Astro.slots.has('where') && (
+		<div class="pd-formula-card__where">
+			<span class="pd-formula-card__where-title">Where:</span>
+			<div class="pd-formula-card__where-content">
+				<slot name="where" />
+			</div>
+		</div>
+	)}
+
+	{note && (
+		<div class="pd-formula-card__note">
+			<span class="pd-formula-card__note-label">Insight:</span>
+			<span class="pd-formula-card__note-text">{note}</span>
+		</div>
+	)}
+</div>
+
+<style>
+	.pd-formula-card {
+		margin: 2rem 0;
+		padding: 1.35rem 1.45rem;
+		background: var(--pd-surface);
+		border: 1px solid var(--pd-rule);
+		border-radius: var(--pd-radius);
+		box-shadow: 0 4px 18px rgb(0 0 0 / 2%);
+	}
+
+	.pd-formula-card__header {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		margin-bottom: 0.85rem;
+	}
+
+	.pd-formula-card__badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		width: fit-content;
+		padding: 0.15rem 0.5rem;
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--sl-color-accent);
+		background: color-mix(in srgb, var(--sl-color-accent) 10%, transparent);
+		border-radius: 999px;
+	}
+
+	.pd-formula-card__title {
+		margin: 0;
+		font-family: var(--pd-font-display);
+		font-size: 1.15rem;
+		font-weight: 600;
+		line-height: 1.3;
+		letter-spacing: -0.01em;
+		color: var(--sl-color-white);
+	}
+
+	.pd-formula-card__desc {
+		margin: 0 0 0.85rem;
+		font-size: 0.92rem;
+		line-height: 1.6;
+		color: var(--sl-color-gray-2);
+	}
+
+	.pd-formula-card__body :global(.katex-display) {
+		margin: 0.5rem 0 0.75rem !important;
+		padding: 0.85rem 1rem !important;
+		background: var(--pd-surface-hover) !important;
+		border: 1px solid var(--pd-rule) !important;
+		border-radius: var(--pd-radius);
+		overflow-x: auto;
+	}
+
+	/* Single-line description / where statement inside card */
+	.pd-formula-card__body :global(p:not(:has(.katex-display))) {
+		margin: 0.75rem 0 0.15rem !important;
+		padding-top: 0.7rem;
+		border-top: 1px solid var(--pd-rule);
+		font-size: 0.92rem;
+		line-height: 1.6;
+		color: var(--sl-color-gray-2);
+	}
+
+	.pd-formula-card__where-title {
+		display: block;
+		margin-bottom: 0.6rem;
+		font-size: 0.74rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--sl-color-gray-3);
+	}
+
+	.pd-formula-card__where-content :global(ul) {
+		list-style: none !important;
+		padding: 0 !important;
+		margin: 0 !important;
+		display: flex;
+		flex-direction: column;
+		gap: 0.55rem;
+	}
+
+	.pd-formula-card__where-content :global(li) {
+		display: flex;
+		align-items: baseline;
+		flex-wrap: wrap;
+		gap: 0.65rem;
+		margin: 0 !important;
+		font-size: 0.92rem;
+		line-height: 1.5;
+		color: var(--sl-color-gray-1);
+	}
+
+	/* Math symbol badge in the where breakdown */
+	.pd-formula-card__where-content :global(li > span.katex:first-child),
+	.pd-formula-card__where-content :global(li > strong:first-child) {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.15rem 0.55rem;
+		background: color-mix(in srgb, var(--sl-color-accent) 8%, var(--pd-surface-hover));
+		border: 1px solid var(--pd-rule-strong);
+		border-radius: var(--pd-radius);
+		font-size: 0.95em;
+		color: var(--sl-color-white);
+		flex-shrink: 0;
+	}
+
+	.pd-formula-card__note {
+		display: flex;
+		align-items: baseline;
+		gap: 0.5rem;
+		margin-top: 0.85rem;
+		padding-top: 0.75rem;
+		border-top: 1px dashed var(--pd-rule-strong);
+		font-size: 0.88rem;
+		line-height: 1.55;
+	}
+
+	.pd-formula-card__note-label {
+		flex-shrink: 0;
+		font-size: 0.76rem;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--sl-color-accent);
+	}
+
+	.pd-formula-card__note-text {
+		color: var(--sl-color-gray-2);
+		font-style: italic;
+	}
+</style>

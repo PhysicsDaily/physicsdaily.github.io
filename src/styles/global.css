@@ -201,23 +201,59 @@ body {
 	text-wrap: pretty;
 }
 
+.sl-markdown-content p:not(:where(.not-content *)) {
+	margin-block: 1.35rem;
+	line-height: 1.75;
+	color: var(--sl-color-gray-1);
+}
+
+.sl-markdown-content > p:first-of-type:not(:where(.not-content *)),
+.pd-lead {
+	font-size: 1.125rem;
+	line-height: 1.75;
+	color: var(--sl-color-white);
+}
+
 h1[data-page-title],
 .sl-markdown-content :is(h1, h2):not(:where(.not-content *)) {
 	font-family: var(--pd-font-display);
 	font-weight: 600;
 	letter-spacing: -0.02em;
-	line-height: 1.15;
+	line-height: 1.18;
 	text-wrap: balance;
 }
 
 .sl-markdown-content h2:not(:where(.not-content *)) {
-	padding-block-end: 0.35rem;
+	margin-block-start: 2.75rem;
+	margin-block-end: 1.25rem;
+	padding-block-end: 0.45rem;
 	border-bottom: 1px solid var(--pd-rule);
 }
 
 .sl-markdown-content :is(h3, h4):not(:where(.not-content *)) {
+	margin-block-start: 2rem;
+	margin-block-end: 0.85rem;
 	font-weight: 600;
 	letter-spacing: -0.01em;
+}
+
+.sl-markdown-content strong:not(:where(.not-content *)) {
+	color: var(--sl-color-white);
+	font-weight: 600;
+}
+
+.sl-markdown-content ul:not(:where(.not-content *)) {
+	padding-inline-start: 1.35rem;
+	margin-block: 1.25rem;
+}
+
+.sl-markdown-content ul:not(:where(.not-content *)) > li {
+	margin-block: 0.5rem;
+	line-height: 1.68;
+}
+
+.sl-markdown-content ul:not(:where(.not-content *)) > li::marker {
+	color: var(--sl-color-accent);
 }
 
 .sl-markdown-content a:not(:where(.not-content *)) {
@@ -227,20 +263,33 @@ h1[data-page-title],
 }
 
 .sl-markdown-content blockquote:not(:where(.not-content *)) {
-	padding-inline-start: 1.25rem;
-	font-family: var(--pd-font-display);
-	font-size: 1.125rem;
-	font-style: italic;
-	color: var(--sl-color-gray-2);
-	border-inline-start: 2px solid var(--sl-color-accent);
+	margin-block: 1.75rem;
+	padding: 0.9rem 1.25rem;
+	background: var(--pd-surface);
+	border: 1px solid var(--pd-rule);
+	border-inline-start: 3px solid var(--sl-color-accent);
+	border-radius: var(--pd-radius);
+	font-size: 0.98rem;
+	font-style: normal;
+	color: var(--sl-color-gray-1);
+}
+
+.sl-markdown-content blockquote:not(:where(.not-content *)) p {
+	margin: 0;
+	line-height: 1.65;
 }
 
 /* --- Equations ------------------------------------------------------------ */
 
-.katex-display {
+.sl-markdown-content .katex-display:not(:where(.not-content *)) {
 	overflow-x: auto;
 	overflow-y: hidden;
-	padding-block: 0.75rem;
+	margin-block: 1.75rem;
+	padding: 1.15rem 1.25rem;
+	background: var(--pd-surface);
+	border: 1px solid var(--pd-rule);
+	border-radius: var(--pd-radius);
+	scrollbar-width: thin;
 }
 
 .katex {

@@ -1,0 +1,132 @@
+---
+interface Props {
+	question: string;
+	buttonText?: string;
+}
+
+const { question, buttonText = 'Reveal Explanation' } = Astro.props;
+---
+
+<div class="pd-quick-check not-content">
+	<div class="pd-quick-check__header">
+		<span class="pd-quick-check__badge">
+			<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<circle cx="12" cy="12" r="10" />
+				<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+				<line x1="12" y1="17" x2="12.01" y2="17" />
+			</svg>
+			Quick Check
+		</span>
+		<p class="pd-quick-check__question">{question}</p>
+	</div>
+
+	<details class="pd-quick-check__details">
+		<summary class="pd-quick-check__summary">
+			<span>{buttonText}</span>
+			<svg class="pd-quick-check__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+				<polyline points="6 9 12 15 18 9" />
+			</svg>
+		</summary>
+		<div class="pd-quick-check__answer">
+			<slot />
+		</div>
+	</details>
+</div>
+
+<style>
+	.pd-quick-check {
+		margin: 2rem 0;
+		padding: 1.35rem 1.45rem;
+		background: var(--pd-surface);
+		border: 1px solid var(--pd-rule);
+		border-radius: var(--pd-radius);
+	}
+
+	.pd-quick-check__header {
+		display: flex;
+		flex-direction: column;
+		gap: 0.55rem;
+		margin-bottom: 0.95rem;
+	}
+
+	.pd-quick-check__badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.4rem;
+		width: fit-content;
+		font-size: 0.72rem;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--sl-color-accent);
+	}
+
+	.pd-quick-check__question {
+		margin: 0;
+		font-size: 1.02rem;
+		font-weight: 500;
+		line-height: 1.5;
+		color: var(--sl-color-white);
+	}
+
+	.pd-quick-check__details {
+		margin-top: 0.5rem;
+	}
+
+	.pd-quick-check__summary {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.45rem 0.85rem;
+		font-size: 0.84rem;
+		font-weight: 500;
+		color: var(--sl-color-gray-2);
+		background: var(--pd-surface-hover);
+		border: 1px solid var(--pd-rule-strong);
+		border-radius: var(--pd-radius);
+		cursor: pointer;
+		user-select: none;
+		list-style: none;
+		transition: color 150ms ease, background-color 150ms ease, border-color 150ms ease;
+	}
+
+	.pd-quick-check__summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.pd-quick-check__summary:hover {
+		color: var(--sl-color-white);
+		border-color: var(--sl-color-accent);
+	}
+
+	.pd-quick-check__chevron {
+		transition: transform 200ms ease;
+	}
+
+	.pd-quick-check__details[open] .pd-quick-check__chevron {
+		transform: rotate(180deg);
+	}
+
+	.pd-quick-check__answer {
+		margin-top: 0.85rem;
+		padding: 1rem 1.15rem;
+		background: color-mix(in srgb, var(--sl-color-accent) 4%, var(--pd-surface));
+		border-left: 2px solid var(--sl-color-accent);
+		border-radius: 0 var(--pd-radius) var(--pd-radius) 0;
+		font-size: 0.92rem;
+		line-height: 1.6;
+		color: var(--sl-color-gray-2);
+	}
+
+	.pd-quick-check__answer :global(p) {
+		margin: 0.35rem 0;
+	}
+
+	.pd-quick-check__answer :global(p:first-child) {
+		margin-top: 0;
+	}
+
+	.pd-quick-check__answer :global(p:last-child) {
+		margin-bottom: 0;
+	}
+</style>
