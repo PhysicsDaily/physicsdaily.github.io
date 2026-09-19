@@ -7,7 +7,8 @@
 // Importing with ?url makes Vite emit the same hashed asset the bundled CSS
 // references, so the preload always points at the real file.
 import { getImage } from 'astro:assets';
-import { getDailyFeature } from '../../data/quotes';
+import { getDailyFeature } from '../../lib/dailyQuote';
+import { branchSlugs, legacyBranchSlugs } from '../../site.config';
 import sourceSerifWoff2 from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url';
 import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 
@@ -49,6 +50,13 @@ if (isHome) {
 	});
 }
 
+// URL prefixes a visitor might type for a not-yet-published branch: canonical
+// slugs (minus the live one) plus legacy names, from site.config.ts.
+const upcomingBranches = [
+	...branchSlugs.filter((slug) => slug !== 'mechanics'),
+	...legacyBranchSlugs,
+].map((slug) => `/${slug}`);
+
 const basePrefix = import.meta.env.BASE_URL.replace(/\/$/, '');
 const siteUrl = Astro.site?.origin ?? 'https://physicsdaily.github.io';
 const siteNameSchema = {
@@ -64,23 +72,13 @@ const siteNameSchema = {
 {is404 && <meta name="robots" content="noindex, nofollow" />}
 {
 	is404 && (
-		<script is:inline define:vars={{ basePrefix }}>
+		<script is:inline define:vars={{ basePrefix, upcomingBranches }}>
 			(() => {
 				const fullPath = window.location.pathname.toLowerCase();
 				const normalizedBase = (basePrefix || '').toLowerCase();
 				const path = normalizedBase && fullPath.startsWith(normalizedBase)
 					? fullPath.slice(normalizedBase.length)
 					: fullPath;
-				const upcomingBranches = [
-					'/electromagnetism',
-					'/electrodynamics',
-					'/optics',
-					'/thermodynamics',
-					'/modern',
-					'/modern-physics',
-					'/oscillations',
-					'/waves',
-				];
 				if (upcomingBranches.some((branch) => path === branch || path.startsWith(branch + '/'))) {
 					window.location.replace(`${basePrefix}/coming-soon/`);
 				}

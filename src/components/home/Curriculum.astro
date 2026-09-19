@@ -1,20 +1,11 @@
 ---
-import ArrowIcon from '../ArrowIcon.astro';
-import { base, getChapters } from '../../data/chapters';
+import ArrowIcon from '../ui/ArrowIcon.astro';
+import { base, getChapters } from '../../lib/chapters';
+import { branches } from '../../site.config';
 
-// Branch order follows Halliday, Resnick & Krane: mechanics, oscillations
-// and waves, thermodynamics, electrodynamics, optics, then modern physics.
-// To activate a planned branch: set its slug to the content directory's name
-// (e.g. 'thermodynamics'). The chapter count is computed automatically from
-// the sidebar — no extra code needed.
-const branches = [
-	{ name: 'Mechanics', slug: 'mechanics' },
-	{ name: 'Oscillations & Waves', slug: null },
-	{ name: 'Thermodynamics', slug: null },
-	{ name: 'Electrodynamics', slug: null },
-	{ name: 'Optics', slug: null },
-	{ name: 'Modern Physics', slug: null },
-] as const;
+// Branch list and canonical slugs come from site.config.ts — the chapter count
+// is computed automatically from the sidebar, so launching a branch means
+// flipping its `live` flag there and creating its content directory.
 
 const sidebar = Astro.locals.starlightRoute.sidebar;
 
@@ -36,7 +27,7 @@ const chapterCount = (slug: string): number => getChapters(sidebar, slug).length
 		{
 			branches.map((branch, index) => {
 				const number = String(index + 1).padStart(2, '0');
-				const count = branch.slug ? chapterCount(branch.slug) : 0;
+				const count = branch.live ? chapterCount(branch.slug) : 0;
 				const body = (
 					<>
 						<span class="pd-branch__num">{number}</span>
@@ -44,7 +35,7 @@ const chapterCount = (slug: string): number => getChapters(sidebar, slug).length
 							<h3 class="pd-branch__name">{branch.name}</h3>
 						</div>
 						<span class="pd-branch__meta">
-							{branch.slug ? (
+							{branch.live ? (
 								<>
 									<span class="pd-branch__dot" />
 									{count} {count === 1 ? 'chapter' : 'chapters'}
@@ -59,7 +50,7 @@ const chapterCount = (slug: string): number => getChapters(sidebar, slug).length
 
 				return (
 					<li>
-						{branch.slug ? (
+						{branch.live ? (
 							<a class="pd-branch" href={`${base}${branch.slug}/`}>
 								{body}
 							</a>

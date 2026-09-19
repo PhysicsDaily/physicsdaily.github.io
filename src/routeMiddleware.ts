@@ -17,7 +17,7 @@ export const onRequest = defineRouteMiddleware(async (context, next) => {
 
 	const route = context.locals.starlightRoute;
 
-	// Set page title to just the page's title on the homepage to avoid "PhysicsDaily | PhysicsDaily"
+	// Homepage title should be the bare site title, not "PhysicsDaily | PhysicsDaily".
 	const isHome =
 		route.id === '' ||
 		route.id === 'index' ||
@@ -32,8 +32,7 @@ export const onRequest = defineRouteMiddleware(async (context, next) => {
 	}
 
 	// Splash pages stand outside the reading flow; the homepage also reads the full
-	// sidebar to count its curriculum's chapters, so it must not be narrowed even if
-	// a Home link is ever added to it.
+	// sidebar to count its curriculum's chapters, so it must not be narrowed.
 	if (route.entry?.data?.template === 'splash') return;
 
 	const branch = route.sidebar?.find(holdsCurrentPage);
