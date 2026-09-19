@@ -93,7 +93,8 @@ export const scientists: Scientist[] = [
 			{
 				text: 'Truth is ever to be found in simplicity, and not in the multiplicity and confusion of things.',
 				source: 'Rules for methodizing the Apocalypse, printed in Frank E. Manuel, The Religion of Isaac Newton',
-				year: '1974',
+				year: 'c. 1680s',
+				reported: true,
 			},
 		],
 	},
