@@ -1,0 +1,45 @@
+---
+title: Introduction to Kinematics
+description: Understanding the language and conceptual framework used to describe motion.
+order: 1
+---
+
+import Callout from '../../../../components/ui/Callout.astro';
+
+## Concept Hook & Definition
+
+Mechanics is the study of how objects move and interact with their surroundings. To build a solid foundation, classical mechanics divides the analysis of motion into two primary branches: **kinematics** and **dynamics**.
+
+**Kinematics** is the mathematical description of motion without considering the forces or agents that cause that motion. Often called the *geometry of motion*, kinematics provides the foundational vocabulary—position, displacement, velocity, and acceleration—needed to track where a body is and how its coordinates change through time.
+
+<Callout type="definition" title="Kinematics vs. Dynamics">
+**Kinematics** specifies *how* an object moves (its trajectory, speed, and acceleration). **Dynamics** investigates *why* it moves (the forces, energies, and physical interactions driving the motion).
+</Callout>
+
+## The Particle Model
+
+In the physical world, moving objects have complex shapes, flexible parts, and internal vibrations. For example, a moving car has rotating wheels, vibrating engine pistons, and shifting passengers.
+
+To make mechanics tractable, we begin with the **point particle idealization**. We treat an object as a single mathematical point endowed with mass but having negligible volume or internal structure. This idealization is valid whenever:
+
+1. The dimensions of the object are negligible compared to the total distance it travels.
+2. The internal rotation or deformation of the object does not alter the translational path of its center of mass.
+
+For instance, an airplane spanning 70 meters can be treated as a point particle when navigating a 5,000-kilometer intercontinental flight path.
+
+## Relativity of Rest and Motion
+
+A fundamental principle of physics is that **rest and motion are strictly relative terms**. There is no such thing as an absolute coordinate center or a body in absolute, universal rest. Motion can only ever be stated with respect to an observer or an established **frame of reference**.
+
+A **frame of reference** consists of a coordinate axes system anchored to a chosen reference body, paired with a synchronized clock to record time.
+
+<Callout type="tip" title="Defining Rest and Motion">
+Let $\vec{r}(t)$ denote the position vector of a body at time $t$ relative to a specific observer:
+
+- **At Rest**: If $\vec{r}(t) = \text{constant}$ as time advances, the body is at rest relative to that observer.
+- **In Motion**: If $\vec{r}(t)$ varies with time, the body is in motion relative to that observer.
+</Callout>
+
+A passenger sitting inside a high-speed train car is completely at rest with respect to the seat and fellow passengers. Yet to an observer standing on the railway platform, that same passenger is traveling at 300 km/h. Both statements are entirely correct within their respective frames of reference.
+
+We begin our quantitative study of kinematics in the following section by examining how to locate an object in space using **Position**.

@@ -7,11 +7,22 @@ order: 2
 import Callout from '../../../../components/ui/Callout.astro';
 import FormulaCard from '../../../../components/ui/FormulaCard.astro';
 
-## Definition
+## Concept & Definition
 
-In mechanics, position denotes where a particle is in space. 
-The position of a particle is defined with respect to the origin or with respect to the observer (usually at the origin).
-We can simply understand the position vector as a vector drawn from the origin to the point where the particle is located.  
+To describe how an object moves, the first question we must answer is straightforward: *where is it located?* In mechanics, **position** specifies the location of a particle in space relative to an agreed-upon reference point, known as the **origin** ($O$).
+
+The **position vector**, denoted by $\vec{r}$ (or bold $\mathbf{r}$), is a directed arrow drawn from the origin directly to the point where the particle is situated. Because specifying a location requires both how far away the particle is and in which direction it lies, position is fundamentally a **vector quantity**.
+
+<Callout type="definition" title="Units and Dimensions">
+The SI unit of position is the meter ($\text{m}$), and its dimensional formula is $[\text{L}]$.
+</Callout>
+
+## Coordinate Systems and Dimensions
+
+Position can be defined across different spatial dimensions depending on the constraints of motion:
+
+- In **one dimension (1D)**, motion is confined to a straight line (such as the $x$-axis). The position is specified by a single signed coordinate $x$, where $\vec{r} = x\hat{i}$.
+- In **two dimensions (2D)**, motion occurs in a plane. The position is specified by an ordered pair $(x, y)$, where $\vec{r} = x\hat{i} + y\hat{j}$.
 
 <div class="diagram-grid">
 
@@ -19,11 +30,7 @@ We can simply understand the position vector as a vector drawn from the origin t
 
 ![Position vector in 1D space](../../../../assets/position-vector-1d.svg)
 
-<figcaption>
-
-_Figure 1: Position vector_ $\vec{r}$ _along 1D axis from origin_ $O$ _to point_ $P(x)$.
-
-</figcaption>
+<figcaption>_Figure 1: Position vector_ $\vec{r}$ _along a 1D axis from origin_ $O$ _to point_ $P(x)$.</figcaption>
 
 </figure>
 
@@ -31,69 +38,53 @@ _Figure 1: Position vector_ $\vec{r}$ _along 1D axis from origin_ $O$ _to point_
 
 ![Position vector in 2D space](../../../../assets/position-vector-2d.svg)
 
-<figcaption>
-
-_Figure 2: Position vector_ $\vec{r}$ _drawn from origin_ $O$ _to point_ $P(x, y)$.
-
-</figcaption>
+<figcaption>_Figure 2: Position vector_ $\vec{r}$ _drawn from origin_ $O$ _to point_ $P(x, y)$.</figcaption>
 
 </figure>
 
 </div>
 
-<Callout type="definition" title="Units and Dimensions">
-
-The SI unit of position is meter ($\text{m}$), and its dimension is $[\text{L}]$.
-
-</Callout>
-
-It is a **vector quantity**, meaning it requires both magnitude and direction to be defined.
-It is generally represented by $\vec{r}$ (or in bold as $\mathbf{r}$).
-The position of a particle can be defined either in 1 dimension, 2 dimensions or 3 dimensions.
-This chapter primarily focuses on motion in 1 dimension. 
-We will discuss motion in different dimensions later.
-
-## 3D Representation
+In **three dimensions (3D)**, the particle moves freely through physical space, requiring three mutually perpendicular coordinates $(x, y, z)$ to determine its exact location.
 
 <figure class="diagram-card">
 
 ![Position vector in 3D space](../../../../assets/position-vector-3d.png)
 
-<figcaption>
-
-_Figure 3: Position vector_ $\vec{r}$ _of point_ $P(x, y, z)$ _in a 3D Cartesian coordinate system._
-
-</figcaption>
+<figcaption>_Figure 3: Position vector_ $\vec{r}$ _of point_ $P(x, y, z)$ _in a 3D Cartesian coordinate system._</figcaption>
 
 </figure>
 
-**The position vector of a particle in 3D is defined as:**
+## Mathematical Formulation
 
-<FormulaCard title="Position Vector in 3D" label="Formula">
+In a three-dimensional Cartesian coordinate system with origin $O(0, 0, 0)$, the position vector of any point $P(x, y, z)$ is expressed in terms of the standard unit vectors:
+
+<FormulaCard title="Position Vector in 3D" label="Key Formula">
 
 $$
 \vec{r} = x\hat{i} + y\hat{j} + z\hat{k}
 $$
 
+where $(x, y, z)$ are the Cartesian coordinates of the particle and $(\hat{i}, \hat{j}, \hat{k})$ are unit vectors pointing along the $x$, $y$, and $z$ axes.
+
 </FormulaCard>
 
-The position of a particle has no absolute meaning if there is no coordinate system.
-If we change the coordinate system, the position vector of the particle also changes even if it is stationary with respect to the ground.
+## Magnitude and Distance
 
-## Magnitude
+The magnitude of the position vector represents the straight-line distance from the origin $O$ to the particle at point $P$. By applying the three-dimensional Pythagorean theorem, this distance is:
 
-The magnitude refers to the length of the vector or distance of the particle from the origin or from the observer.
-Given the coordinates of a particle $(x, y, z)$ with the observer at the origin, the magnitude (or length) of the position vector is calculated as:
-
-<FormulaCard title="Magnitude from Origin" label="Magnitude">
+<FormulaCard title="Magnitude from Origin" label="Distance">
 
 $$
 r = |\vec{r}| = \sqrt{\rule{0pt}{2.7ex}x^2 + y^2 + z^2}
 $$
 
+where $r = |\vec{r}|$ is the scalar distance from the origin $(0, 0, 0)$ to the particle at $(x, y, z)$.
+
 </FormulaCard>
 
-But if the observer is not at the origin, the magnitude of the position vector relative to the observer is given by:
+## Relative Position and Reference Frames
+
+Position has no absolute meaning on its own—it is always defined relative to a chosen frame of reference. If the observer is not at the origin $(0, 0, 0)$ but located at coordinates $\vec{r}_0 = (x_0, y_0, z_0)$, the position vector of the particle relative to the observer is given by:
 
 <FormulaCard title="Relative Magnitude" label="Relative Position">
 
@@ -104,3 +95,7 @@ $$
 where $(x, y, z)$ are the coordinates of the particle and $(x_0, y_0, z_0)$ are the coordinates of the observer.
 
 </FormulaCard>
+
+<Callout type="warning" title="Reference Frame Dependency">
+Position is not an intrinsic property of a particle. Changing the origin or rotating the coordinate axes changes the coordinate values and the position vector $\vec{r}$, even if the physical object remains completely stationary relative to the surroundings.
+</Callout>
