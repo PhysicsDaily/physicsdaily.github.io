@@ -1,0 +1,57 @@
+---
+title: Free fall
+description: Constant acceleration applied to a body falling under gravity.
+order: 8
+---
+
+import Callout from '../../../../components/ui/Callout.astro';
+import FormulaCard from '../../../../components/ui/FormulaCard.astro';
+import QuickCheck from '../../../../components/ui/QuickCheck.astro';
+
+## Concept & Definition
+
+Drop a stone, and for its entire flight the only force worth counting is gravity. A body moving under gravity alone — no air resistance, no propulsion — is in **free fall**. "Fall" is slightly misleading: a ball thrown straight *up* is also in free fall from the instant it leaves your hand, because gravity is still the only influence.
+
+What makes free fall so tractable is that gravity supplies a constant acceleration, directed toward the center of the Earth. Free fall is therefore just constant-acceleration motion wearing a new coat — the same equations, with $g$ in place of $a$.
+
+<Callout type="definition" title="Units and Dimensions">
+The acceleration due to gravity near Earth's surface is $g \approx 9.8\ \text{m/s}^2$, directed downward, with dimensional formula $[\text{L}\,\text{T}^{-2}]$.
+</Callout>
+
+## Mathematical Formulation
+
+Taking the upward direction as positive (the usual convention), the constant-acceleration equations become:
+
+<FormulaCard title="Velocity in Free Fall" label="Equation 1">
+
+$$
+v = v_0 - gt
+$$
+
+where $v$ is the velocity at time $t$, $v_0$ is the initial velocity, and $g \approx 9.8\ \text{m/s}^2$ is the acceleration due to gravity.
+
+</FormulaCard>
+
+<FormulaCard title="Height in Free Fall" label="Equation 2">
+
+$$
+y = y_0 + v_0 t - \tfrac{1}{2} g t^2
+$$
+
+where $y$ is the height at time $t$ and $y_0$ is the initial height of the body.
+
+</FormulaCard>
+
+The minus signs are not special to gravity — they simply record that with "up" chosen as positive, the acceleration $-g$ points downward. The body slows as it rises, momentarily stops at the top ($v = 0$), and speeds up on the way down — with the same magnitude of acceleration the whole time.
+
+<Callout type="warning" title="Common Pitfall">
+At the highest point of a throw the velocity is instantaneously zero, but the acceleration is **not** — it remains $-g \approx -9.8\ \text{m/s}^2$. If acceleration vanished at the top, the ball would have no reason to come back down.
+</Callout>
+
+<QuickCheck question="A ball is thrown straight up at 19.6 m/s. How long does it take to reach the top, and how high does it go? (Take g = 9.8 m/s².)">
+
+Time to the top, using $v = 0$ in Equation 1: $0 = 19.6 - 9.8\,t$, so $t = 2\ \text{s}$.
+
+Height from Equation 2 with $y_0 = 0$: $y = (19.6)(2) - \tfrac{1}{2}(9.8)(2^2) = 39.2 - 19.6 = 19.6\ \text{m}$.
+
+</QuickCheck>

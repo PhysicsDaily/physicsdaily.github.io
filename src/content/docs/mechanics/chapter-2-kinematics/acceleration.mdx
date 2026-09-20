@@ -1,0 +1,61 @@
+---
+title: Acceleration
+description: How quickly velocity itself changes.
+order: 6
+---
+
+import Callout from '../../../../components/ui/Callout.astro';
+import FormulaCard from '../../../../components/ui/FormulaCard.astro';
+import QuickCheck from '../../../../components/ui/QuickCheck.astro';
+
+## Concept & Definition
+
+Velocity tells us how position changes; **acceleration** goes one level deeper and tells us how *velocity* changes. Any time a body speeds up, slows down, or changes direction, it is accelerating — pressing you into your seat at a green light, forward against the belt while braking, or sideways through a sharp turn.
+
+Like velocity, acceleration has both an average form over an interval and an instantaneous form at a single moment.
+
+<Callout type="definition" title="Units and Dimensions">
+The SI unit of acceleration is the meter per second squared ($\text{m/s}^2$), with dimensional formula $[\text{L}\,\text{T}^{-2}]$.
+</Callout>
+
+## Mathematical Formulation
+
+If a particle's velocity changes by $\Delta v$ over the interval $\Delta t$, the average acceleration is:
+
+<FormulaCard title="Average Acceleration" label="Key Formula">
+
+$$
+\bar{a} = \frac{\Delta v}{\Delta t} = \frac{v_f - v_i}{t_f - t_i}
+$$
+
+where $\bar{a}$ is the average acceleration, $\Delta v$ is the change in velocity, and $\Delta t$ is the elapsed time.
+
+</FormulaCard>
+
+Shrinking the interval to zero gives the instantaneous acceleration — the derivative of velocity, and therefore the second derivative of position:
+
+<FormulaCard title="Instantaneous Acceleration" label="Definition">
+
+$$
+a = \lim_{\Delta t \to 0} \frac{\Delta v}{\Delta t} = \frac{dv}{dt} = \frac{d^2x}{dt^2}
+$$
+
+where $a$ is the instantaneous acceleration, $v(t)$ is the velocity, and $x(t)$ is the position of the particle as functions of time.
+
+</FormulaCard>
+
+<Callout type="tip" title="Reading the Signs">
+In 1D, acceleration and velocity with the **same sign** means the body is speeding up; **opposite signs** means it is slowing down. The sign of acceleration alone does not tell you which is happening — you must compare it with the sign of the velocity.
+</Callout>
+
+<Callout type="warning" title="Common Pitfall">
+"Deceleration" in everyday speech means slowing down, but in physics there is only acceleration — a signed vector. A negative acceleration does not automatically mean slowing down: if the velocity is also negative, the body is actually speeding up in the negative direction.
+</Callout>
+
+<QuickCheck question="A cyclist moving at 4 m/s reaches 12 m/s in 2 s. What is the average acceleration? If the velocity is v(t) = 4t, what is the instantaneous acceleration?">
+
+Average: $\bar{a} = \dfrac{\Delta v}{\Delta t} = \dfrac{12 - 4}{2} = 4\ \text{m/s}^2$.
+
+Instantaneous: differentiate the velocity, $a = \dfrac{dv}{dt} = \dfrac{d}{dt}(4t) = 4\ \text{m/s}^2$ — here the acceleration is constant, so average and instantaneous agree at every moment.
+
+</QuickCheck>

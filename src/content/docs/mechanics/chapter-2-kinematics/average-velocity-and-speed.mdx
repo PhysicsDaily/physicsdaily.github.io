@@ -1,0 +1,61 @@
+---
+title: Average velocity and average speed
+description: Displacement and distance spread over an interval of time.
+order: 4
+---
+
+import Callout from '../../../../components/ui/Callout.astro';
+import FormulaCard from '../../../../components/ui/FormulaCard.astro';
+import QuickCheck from '../../../../components/ui/QuickCheck.astro';
+
+## Concept & Definition
+
+Knowing that a body moved is rarely enough — we want to know **how fast** it moved. Over any interval of time, physics offers two answers, and they differ in exactly the way displacement and distance do. **Average velocity** divides the displacement by the elapsed time; **average speed** divides the total path length by the elapsed time.
+
+One is a vector with a direction and a sign; the other is a plain, always-positive scalar. Choosing the right one for a problem is half the battle.
+
+<Callout type="definition" title="Units and Dimensions">
+Both average velocity and average speed are measured in meters per second ($\text{m/s}$), with dimensional formula $[\text{L}\,\text{T}^{-1}]$.
+</Callout>
+
+## Mathematical Formulation
+
+If a particle undergoes displacement $\Delta x$ during the time interval $\Delta t = t_f - t_i$, its average velocity over that interval is:
+
+<FormulaCard title="Average Velocity" label="Key Formula">
+
+$$
+\bar{v} = \frac{\Delta x}{\Delta t} = \frac{x_f - x_i}{t_f - t_i}
+$$
+
+where $\bar{v}$ is the average velocity, $\Delta x$ is the displacement, and $\Delta t$ is the elapsed time between the initial and final instants.
+
+</FormulaCard>
+
+The bar over $v$ is the standard notation for an average over an interval. Because $\Delta x$ can be positive, negative, or zero, average velocity inherits all three possibilities. Average speed, by contrast, never turns negative:
+
+<FormulaCard title="Average Speed" label="Scalar Form">
+
+$$
+\bar{s} = \frac{\text{total distance traveled}}{\Delta t}
+$$
+
+where $\bar{s}$ is the average speed and the numerator is the full path length, not the displacement.
+
+</FormulaCard>
+
+<Callout type="tip" title="Key Intuition">
+On a position–time graph, average velocity over an interval is the slope of the straight line (the *chord*) joining the initial and final points of the curve.
+</Callout>
+
+<Callout type="warning" title="Common Pitfall">
+For a round trip the displacement is zero, so the average velocity is zero — but the average speed is not. A runner who completes one lap of a track in $60\ \text{s}$ has $\bar{v} = 0$ yet $\bar{s} = 400 / 60 \approx 6.7\ \text{m/s}$. Never use displacement in the speed formula or distance in the velocity formula.
+</Callout>
+
+<QuickCheck question="A car drives 60 km east in 1 hour, then 60 km west in 1 hour. Find its average velocity and average speed over the 2-hour trip.">
+
+Average velocity uses displacement: the car ends where it started, so $\Delta x = 0$ and $\bar{v} = 0 / 2 = 0\ \text{km/h}$.
+
+Average speed uses distance: total path is $60 + 60 = 120\ \text{km}$, so $\bar{s} = 120 / 2 = 60\ \text{km/h}$.
+
+</QuickCheck>

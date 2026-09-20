@@ -1,0 +1,68 @@
+---
+title: Displacement
+description: The change in position from where a body started to where it ended.
+order: 3
+---
+
+import Callout from '../../../../components/ui/Callout.astro';
+import FormulaCard from '../../../../components/ui/FormulaCard.astro';
+import QuickCheck from '../../../../components/ui/QuickCheck.astro';
+
+## Concept & Definition
+
+If position answers *"where is the body?"*, then **displacement** answers the question that actually matters in physics: *"how far, and in which direction, did it move?"* It is defined as the change in position — a single straight arrow drawn from where the motion started to where it ended, regardless of the path taken in between.
+
+Because it carries both a size and a direction, displacement is a **vector quantity**, written $\Delta \vec{r}$. The Greek letter $\Delta$ (delta) is the standard mathematical shorthand for "change in" — always computed as **final minus initial**.
+
+<Callout type="definition" title="Units and Dimensions">
+The SI unit of displacement is the meter ($\text{m}$), and its dimensional formula is $[\text{L}]$ — the same as position, since it is a difference of two positions.
+</Callout>
+
+## Mathematical Formulation
+
+For motion along a straight line, displacement is the difference between the final coordinate $x_f$ and the initial coordinate $x_i$:
+
+<FormulaCard title="Displacement in 1D" label="Key Formula">
+
+$$
+\Delta x = x_f - x_i
+$$
+
+where $\Delta x$ is the displacement, $x_f$ is the final position, and $x_i$ is the initial position of the particle on the axis.
+
+</FormulaCard>
+
+In three dimensions the same idea applies component by component, and the displacement vector is the difference of the final and initial position vectors:
+
+<FormulaCard title="Displacement Vector in 3D" label="Vector Form">
+
+$$
+\Delta \vec{r} = \vec{r}_f - \vec{r}_i = (x_f - x_i)\,\hat{i} + (y_f - y_i)\,\hat{j} + (z_f - z_i)\,\hat{k}
+$$
+
+where $\vec{r}_i = (x_i, y_i, z_i)$ and $\vec{r}_f = (x_f, y_f, z_f)$ are the initial and final position vectors of the particle.
+
+</FormulaCard>
+
+The sign of $\Delta x$ in 1D tells you the direction: a **positive** displacement means net motion along the $+x$ direction, and a **negative** displacement means net motion along $-x$. The magnitude $|\Delta \vec{r}|$ is the straight-line distance between start and finish.
+
+## Displacement vs Distance
+
+These two words are used interchangeably in everyday speech, but in physics they are strictly different:
+
+- **Distance** is a scalar — the total length of the path actually traveled.
+- **Displacement** is a vector — the straight arrow from start to end.
+
+Walk once around a 400 m track and stop where you started: your distance traveled is $400\ \text{m}$, but your displacement is exactly **zero**, because the initial and final positions coincide. Distance can never decrease along a journey; displacement can shrink, grow, or even vanish.
+
+<Callout type="warning" title="Common Pitfall">
+Never report a round trip as "zero movement". The displacement is zero, but the distance is not — and the two answer different questions. Always ask: does the problem care about the *path* (distance) or only the *endpoints* (displacement)?
+</Callout>
+
+<QuickCheck question="A particle moves from x = 2 m to x = 7 m, then back to x = 3 m. What are its displacement and total distance traveled?">
+
+Displacement only sees the endpoints: $\Delta x = x_f - x_i = 3 - 2 = +1\ \text{m}$.
+
+Distance counts every step: first leg $|7 - 2| = 5\ \text{m}$, second leg $|3 - 7| = 4\ \text{m}$, so the total distance is $5 + 4 = 9\ \text{m}$.
+
+</QuickCheck>

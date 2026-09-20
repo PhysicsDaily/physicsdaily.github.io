@@ -1,0 +1,61 @@
+---
+title: Instantaneous velocity
+description: Shrinking the time interval until it describes a single moment.
+order: 5
+---
+
+import Callout from '../../../../components/ui/Callout.astro';
+import FormulaCard from '../../../../components/ui/FormulaCard.astro';
+import QuickCheck from '../../../../components/ui/QuickCheck.astro';
+
+## Concept & Definition
+
+Average velocity describes a whole interval, but real motion varies from moment to moment — a speedometer does not report your average since breakfast. **Instantaneous velocity** is the velocity at one specific instant: what the average velocity becomes when the time interval shrinks toward zero around that instant.
+
+It is a vector, directed along the motion at that moment, and its magnitude is the **instantaneous speed** — the number a speedometer actually shows.
+
+<Callout type="definition" title="Units and Dimensions">
+Instantaneous velocity is measured in meters per second ($\text{m/s}$), with dimensional formula $[\text{L}\,\text{T}^{-1}]$ — identical to average velocity, since a limit does not change units.
+</Callout>
+
+## Mathematical Formulation
+
+Taking the average velocity $\Delta x / \Delta t$ and letting the interval collapse to zero defines the instantaneous velocity as a derivative:
+
+<FormulaCard title="Instantaneous Velocity" label="Definition">
+
+$$
+v = \lim_{\Delta t \to 0} \frac{\Delta x}{\Delta t} = \frac{dx}{dt}
+$$
+
+where $v$ is the instantaneous velocity at time $t$ and $x(t)$ is the position of the particle as a function of time.
+
+</FormulaCard>
+
+In vector form, the same limiting process applies to each component of the position vector:
+
+<FormulaCard title="Velocity Vector" label="Vector Form">
+
+$$
+\vec{v} = \frac{d\vec{r}}{dt} = \frac{dx}{dt}\,\hat{i} + \frac{dy}{dt}\,\hat{j} + \frac{dz}{dt}\,\hat{k}
+$$
+
+where $\vec{r}(t) = x\,\hat{i} + y\,\hat{j} + z\,\hat{k}$ is the position vector of the particle as a function of time.
+
+</FormulaCard>
+
+<Callout type="tip" title="Key Intuition">
+On a position–time graph, the instantaneous velocity at a point is the slope of the **tangent line** to the curve there. As $\Delta t \to 0$, the chord used for average velocity rotates until it just touches the curve — that touching line is the tangent.
+</Callout>
+
+<Callout type="warning" title="Common Pitfall">
+An average over a trip tells you nothing about any single moment, and vice versa. A car can average $60\ \text{km/h}$ over a journey while never once reading exactly $60\ \text{km/h}$ on its speedometer. Keep "average" and "instantaneous" as separate ideas.
+</Callout>
+
+<QuickCheck question="A particle moves with position x(t) = 3t² (in meters, t in seconds). What is its instantaneous velocity at t = 2 s?">
+
+Differentiate the position: $v = \dfrac{dx}{dt} = \dfrac{d}{dt}\left(3t^2\right) = 6t$.
+
+Evaluate at $t = 2\ \text{s}$: $v = 6 \times 2 = 12\ \text{m/s}$.
+
+</QuickCheck>
