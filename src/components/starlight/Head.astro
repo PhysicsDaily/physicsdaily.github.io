@@ -9,7 +9,7 @@
 import { getImage } from 'astro:assets';
 import { getDailyFeature } from '../../lib/dailyQuote';
 import { base } from '../../lib/chapters';
-import { branchSlugs, legacyBranchSlugs, site, analytics } from '../../site.config';
+import { branches, legacyBranchSlugs, site, analytics } from '../../site.config';
 import sourceSerifWoff2 from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url';
 import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 
@@ -21,10 +21,21 @@ const is404 =
 	Astro.url.pathname === '/404/' ||
 	Astro.url.pathname === '/404';
 
-// Exclude analytics on 404 pages and in local dev so automated bot scanners and localhost testing
-// don't corrupt real visitor metrics, bounce rates, or engagement times.
+// The coming-soon placeholder is where all unpublished-branch redirects land, so
+// it racks up pageviews from people who never meant to visit it. Counting those
+// would poison bounce rate and engagement-time metrics for real content.
+const isComingSoon =
+	id === 'coming-soon' ||
+	entry?.id === 'coming-soon' ||
+	entry?.id?.endsWith('/coming-soon') ||
+	Astro.url.pathname.endsWith('/coming-soon/') ||
+	Astro.url.pathname.endsWith('/coming-soon');
+
+// Exclude analytics on 404 and coming-soon pages and in local dev so automated bot
+// scanners, redirect traffic, and localhost testing don't corrupt real visitor
+// metrics, bounce rates, or engagement times.
 const isDev = import.meta.env.DEV;
-const headTags = is404 || isDev
+const headTags = is404 || isComingSoon || isDev
 	? head.filter((tag) => {
 			const src = tag.attrs?.src ? String(tag.attrs.src) : '';
 			const content = tag.content ? String(tag.content) : '';
@@ -52,9 +63,9 @@ if (isHome) {
 }
 
 // URL prefixes a visitor might type for a not-yet-published branch: canonical
-// slugs (minus the live one) plus legacy names, from site.config.ts.
+// slugs (driven by the `live` flag) plus legacy names, from site.config.ts.
 const upcomingBranches = [
-	...branchSlugs.filter((slug) => slug !== 'mechanics'),
+	...branches.filter((b) => !b.live).map((b) => b.slug),
 	...legacyBranchSlugs,
 ].map((slug) => `/${slug}`);
 
@@ -72,6 +83,8 @@ const siteNameSchema = {
 
 {headTags.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
 {is404 && <meta name="robots" content="noindex, nofollow" />}
+{/* Keep the placeholder out of search results so it never outranks real chapters. */}
+{isComingSoon && <meta name="robots" content="noindex" />}
 {
 	is404 && (
 		<script is:inline define:vars={{ basePrefix, upcomingBranches }}>

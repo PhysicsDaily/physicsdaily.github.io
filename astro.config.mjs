@@ -5,7 +5,7 @@ import starlight from '@astrojs/starlight';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 import { generateSidebar } from './src/lib/generateSidebar.mjs';
-import { site, analytics, branchSlugs, legacyBranchSlugs } from './src/site.config.ts';
+import { site, analytics, branches } from './src/site.config.ts';
 
 const [repositoryOwner = '', repositoryName = ''] = (process.env.GITHUB_REPOSITORY ?? '').split('/');
 const isGitHubPagesBuild = Boolean(repositoryOwner && repositoryName);
@@ -22,17 +22,22 @@ const base =
 const basePrefix = base.replace(/\/$/, '');
 
 /**
- * Redirects keep old URLs alive. Live branches send their legacy names to the
- * canonical slug; not-yet-published branches and the split-chapter's old single
- * page land on `/coming-soon/` or the chapter's first section.
- * Built from site.config.ts so branch names exist in exactly one place.
+ * Redirects keep old URLs alive. Not-yet-published branches and the
+ * split-chapter's old single page land on `/coming-soon/` or the chapter's
+ * first section.
+ *
+ * Legacy slugs from the deleted pre-rebuild site (electrodynamics, waves, …)
+ * deliberately get NO redirect entry: they fall through to the real 404 page,
+ * whose 404 status tells crawlers the old URLs are gone for good so Google
+ * de-indexes them. Human visitors are still forwarded to `/coming-soon/` by
+ * the client-side script in Head.astro. Built from site.config.ts so branch
+ * names exist in exactly one place.
  */
 const redirects = Object.fromEntries([
 	['/mechanics/chapter-2-kinematics', `${basePrefix}/mechanics/chapter-2-kinematics/introduction-to-kinematics/`],
-	...legacyBranchSlugs.map((slug) => [slug, `${basePrefix}/coming-soon/`]),
-	...branchSlugs
-		.filter((slug) => slug !== 'mechanics')
-		.map((slug) => [slug, `${basePrefix}/coming-soon/`]),
+	// Driven by the `live` flag: flipping a branch to live in site.config.ts
+	// automatically drops its coming-soon redirect so the real page is served.
+	...branches.filter((b) => !b.live).map((b) => [b.slug, `${basePrefix}/coming-soon/`]),
 ]);
 
 // Analytics snippets. Loaded conditionally (not via static attrs) so dev sessions
