@@ -2,5 +2,7 @@
 User-agent: *
 Allow: /
 
-# Point crawlers at the sitemap (helps discovery when Search Console is slow)
+# Point crawlers at the sitemap (helps discovery when Search Console is slow).
+# /sitemap.xml is a post-build copy of sitemap-index.xml — see scripts/copy-sitemap.mjs.
+Sitemap: https://physicsdaily.github.io/sitemap.xml
 Sitemap: https://physicsdaily.github.io/sitemap-index.xml

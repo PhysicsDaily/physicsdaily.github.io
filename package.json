@@ -9,7 +9,7 @@
     "dev:logs": "astro dev logs",
     "dev:stop": "astro dev stop",
     "generate:favicons": "node scripts/generate-favicons.js",
-    "build": "node scripts/generate-favicons.js && astro build",
+    "build": "node scripts/generate-favicons.js && astro build && node scripts/copy-sitemap.mjs",
     "check": "astro check",
     "preview": "astro preview",
     "astro": "astro"
