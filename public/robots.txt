@@ -2,5 +2,5 @@
 User-agent: *
 Allow: /
 
-# Point crawlers to a simple, single-file sitemap generated from Astro's routes.
-Sitemap: https://physicsdaily.github.io/sitemap.xml
+# Point crawlers directly at the URL sitemap rather than its index wrapper.
+Sitemap: https://physicsdaily.github.io/sitemap-0.xml
