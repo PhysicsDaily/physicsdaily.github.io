@@ -1,25 +1,20 @@
 ---
+// Feedback form that posts to Google Forms; all copy and field IDs come from site.config.ts.
 import ArrowIcon from './ArrowIcon.astro';
 import { feedback as feedbackConfig } from '../../site.config';
 ---
 
-<div class="pd-feedback-container">
+<div class="pd-card pd-feedback-container">
 	<pd-feedback-form
 		data-success={feedbackConfig.successMessage}
+		data-error={feedbackConfig.errorMessage}
+		data-fallback-text={feedbackConfig.fallbackLinkText}
+		data-fallback-url={feedbackConfig.directFormUrl}
 		data-btn-text={feedbackConfig.buttonText}
 	>
-		<iframe
-			name="pd-feedback-iframe"
-			id="pd-feedback-iframe"
-			tabindex="-1"
-			aria-hidden="true"
-			class="pd-feedback__iframe"
-		></iframe>
-
 		<form
 			action={feedbackConfig.formActionUrl}
 			method="POST"
-			target="pd-feedback-iframe"
 			class="pd-feedback__form"
 		>
 			<div class="pd-feedback__field">
@@ -67,35 +62,45 @@ import { feedback as feedbackConfig } from '../../site.config';
 	class PDFeedbackForm extends HTMLElement {
 		connectedCallback() {
 			const form = this.querySelector('form');
-			const iframe = this.querySelector('iframe');
 			const submitBtn = this.querySelector('.pd-feedback__submit') as HTMLButtonElement | null;
 			const submitText = this.querySelector('.pd-feedback__submit-text');
 			const status = this.querySelector('.pd-feedback__status') as HTMLElement | null;
-			const successMsg = this.dataset.success || 'Thank you! Your feedback has been sent.';
-			const defaultBtnText = this.dataset.btnText || 'Send feedback';
+			if (!form || !submitBtn || !status) return;
 
-			if (!form || !iframe || !submitBtn || !status) return;
+			const { success = '', error = '', fallbackText = '', fallbackUrl = '', btnText = '' } = this.dataset;
 
-			let isSubmitting = false;
+			const show = (kind: 'success' | 'error', message: string) => {
+				status.className = `pd-feedback__status pd-feedback__status--${kind}`;
+				const text = document.createElement('strong');
+				text.textContent = message;
+				status.replaceChildren(text);
+				if (kind === 'error' && fallbackUrl) {
+					const link = document.createElement('a');
+					link.href = fallbackUrl;
+					link.textContent = fallbackText;
+					link.rel = 'noopener';
+					status.append(link);
+				}
+				status.hidden = false;
+			};
 
-			form.addEventListener('submit', () => {
-				isSubmitting = true;
+			form.addEventListener('submit', async (event) => {
+				event.preventDefault();
 				submitBtn.disabled = true;
 				if (submitText) submitText.textContent = 'Sending...';
 				status.hidden = true;
-			});
 
-			iframe.addEventListener('load', () => {
-				if (!isSubmitting) return;
-				isSubmitting = false;
-
-				form.reset();
-				submitBtn.disabled = false;
-				if (submitText) submitText.textContent = defaultBtnText;
-
-				status.innerHTML = `<strong>✓ ${successMsg}</strong>`;
-				status.className = 'pd-feedback__status pd-feedback__status--success';
-				status.hidden = false;
+				try {
+					// Google Forms sends no CORS headers, so the response is opaque: only a network failure rejects.
+					await fetch(form.action, { method: 'POST', mode: 'no-cors', body: new FormData(form) });
+					form.reset();
+					show('success', success);
+				} catch {
+					show('error', error);
+				} finally {
+					submitBtn.disabled = false;
+					if (submitText) submitText.textContent = btnText;
+				}
 			});
 		}
 	}

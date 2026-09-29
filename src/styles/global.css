@@ -32,7 +32,9 @@
 	--pd-surface-hover: #1d2127;
 	--pd-btn-fg: #0e1116;
 	--pd-radius: 0.25rem;
+	--pd-radius-lg: 0.85rem;
 	--pd-measure: 38rem;
+	--pd-warning: #d97706;
 }
 
 :root[data-theme='light'] {
@@ -80,6 +82,55 @@ body {
 	outline-offset: 3px;
 }
 
+/* --- Shared component primitives ------------------------------------------ */
+
+.pd-card {
+	background: var(--pd-surface);
+	border: 1px solid var(--pd-rule);
+	border-radius: var(--pd-radius);
+}
+
+.pd-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	width: fit-content;
+	font-size: 0.72rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--sl-color-accent);
+}
+
+/* Tight paragraph rhythm for text inside cards, with no outer margin. */
+.pd-flow p {
+	margin: 0.4rem 0;
+}
+
+.pd-flow p:first-child {
+	margin-top: 0;
+}
+
+.pd-flow p:last-child {
+	margin-bottom: 0;
+}
+
+/* Frame for iframe embeds (video, simulations). */
+.pd-embed {
+	overflow: hidden;
+	width: 100%;
+	margin-block: 1.5rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: var(--pd-radius-lg);
+}
+
+.pd-embed iframe {
+	display: block;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
 /* --- Site chrome ---------------------------------------------------------- */
 
 .header {
@@ -106,8 +157,37 @@ body {
 	height: 1.75rem;
 }
 
+.sidebar-content {
+	font-variant-numeric: tabular-nums;
+}
+
 .sidebar-content a {
 	font-size: var(--sl-text-sm);
+	transition:
+		color 120ms ease,
+		background-color 120ms ease;
+}
+
+/* Current page: a tinted row with an accent edge, quieter than Starlight's solid fill. */
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover,
+.sidebar-content a[aria-current='page']:focus {
+	font-weight: 600;
+	color: var(--sl-color-white);
+	background-color: var(--sl-color-accent-low);
+	box-shadow: inset 2px 0 0 var(--sl-color-accent);
+}
+
+.sidebar-content a:not([aria-current='page']):hover,
+.sidebar-content summary:hover {
+	background-color: var(--pd-surface-hover);
+	border-radius: 0.25rem;
+}
+
+/* Outlines sit inside the row: the pane clips anything drawn outside it. */
+.sidebar-content :is(a, summary):focus-visible {
+	outline-offset: -2px;
+	border-radius: 0.25rem;
 }
 
 .sidebar-content summary > span,
@@ -121,8 +201,7 @@ body {
 }
 
 /* The branch heading replaces the group `<summary>`, so it carries the padding the
-   summary used to provide, keeps the summary's immunity to text selection, and its
-   chapters keep the nested indent rule. */
+   summary used to provide and keeps the summary's immunity to text selection. */
 .pd-branch-label {
 	margin: 0 0 0.35rem;
 	padding-inline: var(--sl-sidebar-item-padding-inline, 0.5rem);
@@ -131,10 +210,26 @@ body {
 	user-select: none;
 }
 
+.pd-branch-meta {
+	margin: -0.15rem 0 0.75rem;
+	padding-inline: var(--sl-sidebar-item-padding-inline, 0.5rem);
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-gray-3);
+}
+
+/* Chapters sit flush with the heading; the only guide line is the one inside an
+   expanded chapter, so the two levels never draw parallel rules. */
 .pd-branch-nav > ul {
-	margin-inline-start: 0.5rem;
-	border-inline-start: 1px solid var(--sl-color-hairline-light);
-	padding-inline-start: 0.5rem;
+	margin: 0;
+	padding: 0;
+}
+
+.pd-branch-nav > ul > li:first-child {
+	margin-block-end: 0.4rem;
+}
+
+.pd-branch-nav > ul > li + li {
+	margin-block-start: 0.1rem;
 }
 
 /* A chapter divided into sections is a nested group, sitting in the list among the
@@ -156,7 +251,32 @@ body {
 	color: var(--sl-color-gray-2);
 }
 
+/* The chapter being read stands out from the others, open or closed. */
+.pd-branch-nav details:is([open], :has([aria-current='page'])) > summary .group-label > span {
+	font-weight: 600;
+	color: var(--sl-color-white);
+}
+
+.pd-branch-nav details:is([open], :has([aria-current='page'])) > summary .caret {
+	color: var(--sl-color-white);
+}
+
+.pd-branch-nav details:not([open]):has([aria-current='page']) > summary {
+	box-shadow: inset 2px 0 0 var(--sl-color-accent);
+	border-radius: 0.25rem;
+}
+
 @media (min-width: 50rem) {
+	/* Soften the end of a long list where it meets the bottom of the pane; the extra
+	   padding keeps the last item clear of the fade at the end of the scroll. */
+	.sidebar-pane {
+		mask-image: linear-gradient(to bottom, #000 calc(100% - 1.75rem), transparent);
+	}
+
+	.sidebar-content {
+		padding-bottom: 2rem;
+	}
+
 	/* The branch heading shares its row with the collapse button: it is the one row
 	   that never carries an active-page highlight, so nothing collides there. Hence
 	   the button's height as a floor, and its width kept clear at the inline end. */
@@ -175,24 +295,6 @@ body {
 	}
 }
 
-/* --- Compact "On this page" rail ------------------------------------------ */
-
-/* Starlight sizes the TOC column as the sidebar width plus half the space left
-   over around the centred content column — far more than a heading list needs.
-   Pin it to the sidebar width, hand the reclaimed space to the main pane, and
-   keep the prose centred in the widened pane. */
-@media (min-width: 72rem) {
-	.right-sidebar-container {
-		width: var(--sl-sidebar-width);
-	}
-
-	[data-has-sidebar][data-has-toc] .main-pane {
-		--sl-content-margin-inline: auto;
-
-		width: calc(100% - var(--sl-sidebar-width));
-	}
-}
-
 /* --- Editorial typography for prose pages -------------------------------- */
 
 .sl-markdown-content,
@@ -207,8 +309,7 @@ body {
 	color: var(--sl-color-gray-1);
 }
 
-.sl-markdown-content > p:first-of-type:not(:where(.not-content *)),
-.pd-lead {
+.sl-markdown-content > p:first-of-type:not(:where(.not-content *)) {
 	font-size: 1.125rem;
 	line-height: 1.75;
 	color: var(--sl-color-white);
@@ -248,8 +349,9 @@ h1[data-page-title],
 }
 
 .sl-markdown-content ul:not(:where(.not-content *)) > li {
-	margin-block: 0.5rem;
+	margin-block: 0.75rem;
 	line-height: 1.68;
+	color: var(--sl-color-gray-1);
 }
 
 .sl-markdown-content ul:not(:where(.not-content *)) > li::marker {
@@ -439,19 +541,7 @@ h1[data-page-title],
 }
 
 .pd-feedback-container {
-	background: var(--pd-surface);
-	border: 1px solid var(--pd-rule);
-	border-radius: var(--pd-radius);
 	padding: clamp(1.25rem, 1rem + 1vw, 2rem);
-}
-
-.pd-feedback__iframe {
-	position: absolute;
-	width: 0;
-	height: 0;
-	border: 0;
-	visibility: hidden;
-	pointer-events: none;
 }
 
 .pd-feedback__form {
@@ -540,13 +630,13 @@ h1[data-page-title],
 	border: 1px solid var(--sl-color-accent);
 }
 
-.pd-feedback__status-hint {
-	font-size: 0.8rem;
-	color: var(--sl-color-gray-3);
-	margin-top: 0.2rem;
+.pd-feedback__status--error {
+	color: var(--sl-color-white);
+	background: color-mix(in srgb, var(--pd-warning) 12%, var(--pd-surface));
+	border: 1px solid var(--pd-warning);
 }
 
 /* Hide the default Starlight title panel on the custom feedback page */
 .main-pane:has(.pd-feedback-page) > main > .content-panel:first-child {
 	display: none;
-}
+}

@@ -1,30 +1,32 @@
 ---
-// Homepage-only styles are loaded once here, through overrides/Hero.astro, which
+import Icon from '../ui/Icon.astro';
+
+// Homepage-only styles are loaded once, through home/Hero.astro, which
 // renders on every page that declares a hero — the homepage is the only one.
 const features = [
 	{
 		title: 'Step-by-step derivations',
 		description:
 			'Every result is derived from stated assumptions, so you can follow each step instead of taking it on trust.',
-		icon: 'notes',
+		icon: 'notes' as const,
 	},
 	{
 		title: 'Clearly typeset equations',
 		description:
 			'Math is typeset with KaTeX, so it stays sharp, selectable, and readable at any size.',
-		icon: 'sigma',
+		icon: 'sigma' as const,
 	},
 	{
 		title: 'Diagrams and video',
 		description:
 			'Labelled figures for the geometry, plus a video explanation where watching is easier than reading.',
-		icon: 'video',
+		icon: 'video' as const,
 	},
 	{
 		title: 'Interactive simulations',
 		description:
 			'Simulations sit next to the theory, so you can change one variable and see how the rest responds.',
-		icon: 'sliders',
+		icon: 'sliders' as const,
 	},
 ];
 ---
@@ -39,39 +41,7 @@ const features = [
 		{
 			features.map((feature) => (
 				<li class="pd-feature">
-					<svg
-						width="22"
-						height="22"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="1.5"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						aria-hidden="true"
-					>
-						{feature.icon === 'notes' && (
-							<>
-								<path d="M5 3h8l6 6v12H5z" />
-								<path d="M13 3v6h6" />
-								<path d="M8.5 13h7M8.5 16.5h4.5" />
-							</>
-						)}
-						{feature.icon === 'sigma' && <path d="M17 4.5H7l5.5 7.5L7 19.5h10" />}
-						{feature.icon === 'video' && (
-							<>
-								<rect x="3" y="5" width="18" height="14" rx="2.5" />
-								<path d="M10.5 9.5l4.5 2.5-4.5 2.5z" />
-							</>
-						)}
-						{feature.icon === 'sliders' && (
-							<>
-								<path d="M3.5 9h17M3.5 15.5h17" />
-								<circle cx="9" cy="9" r="2.5" />
-								<circle cx="15.5" cy="15.5" r="2.5" />
-							</>
-						)}
-					</svg>
+					<Icon name={feature.icon} size={22} strokeWidth={1.5} />
 					<h3>{feature.title}</h3>
 					<p>{feature.description}</p>
 				</li>

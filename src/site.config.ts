@@ -21,8 +21,17 @@ export const site = {
 		'Clear, structured physics notes with diagrams, videos, equations, and interactive simulations.',
 	url: 'https://physicsdaily.github.io',
 	/** localStorage key for the sidebar collapse toggle. */
-	sidebarStorageKey: 'physicsdaily-sidebar-collapsed',
+	sidebarStorageKey: 'physicsdaily-sidebar-collapsed-v2',
+	/** localStorage key Starlight's theme picker reads and writes. */
+	themeStorageKey: 'starlight-theme',
 } as const;
+
+/** Homepage portrait rendering; the head preload must match the <Image> exactly. */
+export const heroPortrait = {
+	widths: [380, 500, 760] as number[],
+	sizes: '(min-width: 56rem) 25rem, min(25rem, 90vw)',
+	quality: 78,
+};
 
 /**
  * The six branches, in curriculum order (Halliday, Resnick & Krane).
@@ -51,25 +60,27 @@ export const analytics = {
 	cloudflareToken: 'd9af8c2cb2c2421392420889bf7212d4',
 } as const;
 
+const formBase = 'https://docs.google.com/forms/d/e/1FAIpQLSfgV2H3V_MM0weD2kZ4VktXVrn0bH0owMTSab-RgqT-_CyK0Q';
+
 export const feedback = {
 	/** Google Form POST endpoint ending in /formResponse. */
-	formActionUrl:
-		'https://docs.google.com/forms/d/e/1FAIpQLSfgV2H3V_MM0weD2kZ4VktXVrn0bH0owMTSab-RgqT-_CyK0Q/formResponse',
+	formActionUrl: `${formBase}/formResponse`,
 	/** Google Form entry parameter for the message field. */
 	messageEntryId: 'entry.625974859',
 	/** Google Form entry parameter for the email field. */
 	emailEntryId: 'emailAddress',
-	directFormUrl:
-		'https://docs.google.com/forms/d/e/1FAIpQLSfgV2H3V_MM0weD2kZ4VktXVrn0bH0owMTSab-RgqT-_CyK0Q/viewform',
+	directFormUrl: `${formBase}/viewform`,
 
 	// /feedback page copy
 	eyebrow: 'Feedback & Appreciation',
 	title: 'Feedback, suggestions, or appreciation',
-	lede: 'Found a typo, have a question about a derivation, or simply want to say thanks? Whether it’s constructive feedback, an idea for a simulation, or a kind word of appreciation, we read and cherish every message.',
+	lede: 'Found a typo, have a question about a derivation, or simply want to say thanks? Whether it’s constructive feedback, an idea for a simulation, or a kind word of appreciation, we read every message.',
 	placeholderMessage: 'Your feedback, suggestions, corrections, or a note of appreciation...',
 	placeholderEmail: 'Your email address',
 	buttonText: 'Send message',
 	successMessage: 'Thank you! Your message has been sent.',
+	errorMessage: 'Your message could not be sent.',
+	fallbackLinkText: 'Open the form directly',
 
 	// Homepage callout copy
 	homeSectionEyebrow: 'Feedback & Appreciation',

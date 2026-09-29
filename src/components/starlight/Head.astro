@@ -8,58 +8,43 @@
 // references, so the preload always points at the real file.
 import { getImage } from 'astro:assets';
 import { getDailyFeature } from '../../lib/dailyQuote';
-import { base } from '../../lib/chapters';
-import { branches, legacyBranchSlugs, site, analytics } from '../../site.config';
+import { basePrefix } from '../../lib/paths';
+import { is404 as isNotFound, isComingSoon as isPlaceholder } from '../../lib/route';
+import { analytics, branches, heroPortrait, legacyBranchSlugs, site } from '../../site.config';
 import sourceSerifWoff2 from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url';
 import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 
-const { head, entry, id } = Astro.locals.starlightRoute;
-const is404 =
-	id === '404' ||
-	entry?.id === '404' ||
-	entry?.id?.endsWith('/404') ||
-	Astro.url.pathname === '/404/' ||
-	Astro.url.pathname === '/404';
+const route = Astro.locals.starlightRoute;
+const { head, entry } = route;
+const is404 = isNotFound(route);
+const isComingSoon = isPlaceholder(route);
 
-// The coming-soon placeholder is where all unpublished-branch redirects land, so
-// it racks up pageviews from people who never meant to visit it. Counting those
-// would poison bounce rate and engagement-time metrics for real content.
-const isComingSoon =
-	id === 'coming-soon' ||
-	entry?.id === 'coming-soon' ||
-	entry?.id?.endsWith('/coming-soon') ||
-	Astro.url.pathname.endsWith('/coming-soon/') ||
-	Astro.url.pathname.endsWith('/coming-soon');
+// Skip analytics on 404, the coming-soon placeholder (where every unpublished-branch
+// redirect lands), and in dev, so bots, redirects, and local testing don't skew metrics.
+const trackVisits = !(is404 || isComingSoon || import.meta.env.DEV);
 
-// Exclude analytics on 404 and coming-soon pages and in local dev so automated bot
-// scanners, redirect traffic, and localhost testing don't corrupt real visitor
-// metrics, bounce rates, or engagement times.
-const isDev = import.meta.env.DEV;
-const headTags = is404 || isComingSoon || isDev
-	? head.filter((tag) => {
-			const src = tag.attrs?.src ? String(tag.attrs.src) : '';
-			const content = tag.content ? String(tag.content) : '';
-			const isAnalytics =
-				src.includes('googletagmanager.com') ||
-				src.includes('cloudflareinsights.com') ||
-				content.includes('gtag') ||
-				content.includes(analytics.gaId) ||
-				content.includes('cloudflareinsights');
-			return !isAnalytics;
-	  })
-	: head;
+// Also guarded client-side so a production build previewed on localhost never reports.
+const analyticsScript = `if (!['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+	var ga = document.createElement('script');
+	ga.async = true;
+	ga.src = 'https://www.googletagmanager.com/gtag/js?id=${analytics.gaId}';
+	document.head.appendChild(ga);
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', '${analytics.gaId}');
 
-const isHome = !is404 && Boolean(entry?.data?.hero);
+	var cf = document.createElement('script');
+	cf.type = 'module';
+	cf.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+	cf.setAttribute('data-cf-beacon', '{"token": "${analytics.cloudflareToken}"}');
+	document.head.appendChild(cf);
+}`;
 
 let heroPreload: Awaited<ReturnType<typeof getImage>> | undefined;
-if (isHome) {
+if (entry?.data?.hero) {
 	const { scientist } = getDailyFeature();
-	heroPreload = await getImage({
-		src: scientist.portrait,
-		widths: [380, 500, 760],
-		sizes: '(min-width: 56rem) 25rem, min(25rem, 90vw)',
-		quality: 78,
-	});
+	heroPreload = await getImage({ src: scientist.portrait, ...heroPortrait });
 }
 
 // URL prefixes a visitor might type for a not-yet-published branch: canonical
@@ -69,8 +54,6 @@ const upcomingBranches = [
 	...legacyBranchSlugs,
 ].map((slug) => `/${slug}`);
 
-// Derived from the single BASE_URL normalization in lib/chapters (no trailing slash).
-const basePrefix = base.replace(/\/$/, '');
 const siteUrl = Astro.site?.origin ?? site.url;
 const siteNameSchema = {
 	'@context': 'https://schema.org',
@@ -81,7 +64,8 @@ const siteNameSchema = {
 };
 ---
 
-{headTags.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+{head.map(({ tag: Tag, attrs, content }) => <Tag {...attrs} set:html={content} />)}
+{trackVisits && <script is:inline set:html={analyticsScript} />}
 {is404 && <meta name="robots" content="noindex, nofollow" />}
 {/* Keep the placeholder out of search results so it never outranks real chapters. */}
 {isComingSoon && <meta name="robots" content="noindex" />}
@@ -117,7 +101,7 @@ const siteNameSchema = {
 			as="image"
 			href={heroPreload.src}
 			imagesrcset={heroPreload.srcSet.attribute}
-			imagesizes="(min-width: 56rem) 25rem, min(25rem, 90vw)"
+			imagesizes={heroPortrait.sizes}
 			fetchpriority="high"
 		/>
 	)

@@ -19,8 +19,8 @@ src/
   site.config.ts        # single source of truth: meta, branches, analytics IDs, feedback config
   content.config.ts     # docs collection schema (zod)
   content/docs/         # all pages; sidebar is GENERATED from this tree
-  lib/                  # generateSidebar.mjs, chapters.ts, dailyQuote.ts
-  components/ui/        # ArrowIcon, YouTube, Simulation, FeedbackForm, ChapterCards
+  lib/                  # generateSidebar.mjs, chapters.ts, dailyQuote.ts, paths.ts, route.ts
+  components/ui/        # ArrowIcon, Icon, Callout, FormulaCard, YouTube, Simulation, FeedbackForm, ChapterCards
   components/home/      # Hero override, Curriculum, Approach, FeedbackLink
   components/starlight/ # overrides: Head, PageFrame, Sidebar, ThemeProvider, ThemeSelect
   styles/               # global.css, fonts.css, home.css
@@ -46,8 +46,9 @@ appear in new code. Old URLs redirect so no links break.
 
 - Adding a page = creating a `.md`/`.mdx` file. Sidebar picks it up on next
   build/dev-restart. No manual sidebar edits.
-- Page frontmatter: `title` (required), `description`, `order` (int, reading
-  order), `label` (optional sidebar label override).
+- Page frontmatter: `title` (required, sentence case), `description` (end with a
+  period), `order` (int, reading order), `label` (optional sidebar label override;
+  use this, not `sidebar.label`).
 - A **branch** = a directory under `docs/` with an `index.mdx` (overview) and
   chapter entries.
 - A **chapter** = either a single `chapter-N-slug.md` file, or a directory

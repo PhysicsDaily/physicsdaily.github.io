@@ -19,13 +19,15 @@ const accessibleLabel = Astro.locals.t('themeSelect.accessibleLabel');
 </script>
 
 <script>
+	import { site } from '../../site.config';
+
 	type Theme = 'dark' | 'light';
 
 	declare const StarlightThemeProvider: {
 		updatePickers(theme?: string): void;
 	};
 
-	const storageKey = 'starlight-theme';
+	const storageKey = site.themeStorageKey;
 
 	// ThemeProvider's inline script has already resolved the theme — stored choice,
 	// else the OS preference — and stamped it on <html> before this module runs, so

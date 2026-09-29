@@ -1,4 +1,5 @@
 import type { StarlightRouteData } from '@astrojs/starlight/route-data';
+import { base } from './paths';
 
 type SidebarEntry = StarlightRouteData['sidebar'][number];
 type SidebarGroup = Extract<SidebarEntry, { type: 'group' }>;
@@ -9,9 +10,6 @@ export interface Chapter {
 	title: string;
 	href: string;
 }
-
-const rawBase = import.meta.env.BASE_URL;
-const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 
 /**
  * A chapter's page sits directly inside its branch and is named `chapter-…`, so
@@ -116,5 +114,3 @@ export function getChapters(sidebar: SidebarEntry[], branch: string): Chapter[] 
 
 	return chapters;
 }
-
-export { base };

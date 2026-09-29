@@ -1,6 +1,6 @@
 /*
  * Homepage sections and the shared primitives they use (.pd-eyebrow, .pd-title,
- * .pd-lede, .pd-btn). Imported once, in src/components/overrides/Hero.astro —
+ * .pd-lede, .pd-btn). Imported once, in src/components/home/Hero.astro —
  * homepage components must not import it themselves. (Vite folds this file into
  * the site's shared stylesheet, so every page ships it; the split exists to keep
  * homepage styles organised in one place, not to trim other pages.)

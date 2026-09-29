@@ -1,6 +1,0 @@
-# Allow all crawlers. Site is fully public educational content.
-User-agent: *
-Allow: /
-
-# Point crawlers directly at the URL sitemap rather than its index wrapper.
-Sitemap: https://physicsdaily.github.io/sitemap-0.xml

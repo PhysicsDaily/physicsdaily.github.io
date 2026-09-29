@@ -48,12 +48,12 @@ function parseFrontmatter(path) {
 }
 
 /** Extensions Starlight's docs loader builds a page from. */
-const loadableExtensions = ['.md', '.mdx', '.markdown', '.mdown', '.mkdn', '.mkd', '.mdwn'];
+const loadableExtensions = new Set(['.md', '.mdx', '.markdown', '.mdown', '.mkdn', '.mkd', '.mdwn']);
 /** Extensions this generator supports; the slug rule below assumes the same set. */
-const extensions = ['.md', '.mdx'];
+const extensions = new Set(['.md', '.mdx']);
 
 const fileExtension = (name) => name.slice(name.lastIndexOf('.'));
-const isPage = (name) => extensions.includes(fileExtension(name));
+const isPage = (name) => extensions.has(fileExtension(name));
 
 /** Fields a `_meta.json` may set, and the type each must have. */
 const dirMetaFields = { title: 'string', collapsed: 'boolean', order: 'number' };
@@ -113,12 +113,12 @@ export function generateSidebar(directory) {
 			dirs.push(name.name);
 		} else if (isPage(name.name)) {
 			files.push(name.name);
-		} else if (loadableExtensions.includes(fileExtension(name.name))) {
+		} else if (loadableExtensions.has(fileExtension(name.name))) {
 			// The docs loader would route and build this page, but the sidebar, chapter
 			// counts, and chapter cards would all omit it — fail instead of drifting.
 			throw new Error(
 				`${join(root, name.name)} would be built but never appears in the sidebar. ` +
-					`Rename it to one of: ${extensions.join(', ')}.`
+					`Rename it to one of: ${[...extensions].join(', ')}.`
 			);
 		}
 	}

@@ -1,0 +1,92 @@
+---
+title: 'Chapter 1: Vectors'
+description: Scalars, vectors, and how to describe a vector by its components.
+order: 1
+---
+
+import Callout from '../../../components/ui/Callout.astro';
+import FormulaCard from '../../../components/ui/FormulaCard.astro';
+import QuickCheck from '../../../components/ui/QuickCheck.astro';
+
+## Concept & Definition
+
+Tell someone a car is moving at $60\ \text{km/h}$ and you have only told them *how fast*. Tell them it is moving at $60\ \text{km/h}$ **due north** and you have told them what actually matters. Many physical quantities — displacement, velocity, acceleration, force — need this second piece of information, and quantities that carry it are called **vectors**.
+
+## Scalars and Vectors
+
+Physical quantities fall into two families, depending on what it takes to describe them completely:
+
+- A **scalar** has magnitude only. Mass, time, temperature, distance, and energy are scalars.
+- A **vector** has both magnitude and direction. Displacement, velocity, acceleration, and force are vectors.
+
+We write a vector with an arrow, such as $\vec{v}$, and draw it as an arrow whose **length** represents the magnitude and whose **arrowhead** points in the direction. The magnitude alone is written $|\vec{v}|$ and is always a non-negative scalar.
+
+<Callout type="definition" title="Scalar vs. Vector">
+A scalar is fully described by a number and a unit. A vector also needs a direction.
+</Callout>
+
+## Components
+
+A vector drawn on a plane can be split into two perpendicular parts: one along the $x$-axis and one along the $y$-axis. These are its **components**, $A_x$ and $A_y$. Each component is a signed number — positive when it points along the positive axis, negative when it points against it.
+
+To keep track of direction, we attach a **unit vector** to each axis: $\hat{i}$ points along $+x$ and $\hat{j}$ along $+y$, each with magnitude one. Multiplying a component by its unit vector turns a plain number back into a vector along that axis.
+
+<FormulaCard title="Vector Components in 2D" label="Key Formula">
+
+$$
+\vec{A} = A_x\,\hat{i} + A_y\,\hat{j}
+$$
+
+where $A_x$ and $A_y$ are the components of $\vec{A}$ and $\hat{i}$ and $\hat{j}$ are unit vectors along the $x$- and $y$-axes.
+
+</FormulaCard>
+
+The two components and the vector itself form a right triangle, so the magnitude follows directly from the Pythagorean theorem:
+
+<FormulaCard title="Magnitude of a Vector" label="Key Formula">
+
+$$
+|\vec{A}| = \sqrt{A_x^2 + A_y^2}
+$$
+
+where $A_x$ and $A_y$ are the components of $\vec{A}$ along the $x$- and $y$-axes.
+
+</FormulaCard>
+
+## Direction and Resolution
+
+The same right triangle gives the direction. If $\theta$ is the angle the vector makes with the positive $x$-axis, the components can be recovered from the magnitude and the angle:
+
+<FormulaCard title="Resolving a Vector" label="Key Formula">
+
+$$
+A_x = |\vec{A}|\cos\theta, \qquad A_y = |\vec{A}|\sin\theta
+$$
+
+where $|\vec{A}|$ is the magnitude of $\vec{A}$ and $\theta$ is the angle measured counterclockwise from the positive $x$-axis.
+
+</FormulaCard>
+
+Going the other way, the angle is found from the ratio of the components:
+
+<FormulaCard title="Direction of a Vector" label="Key Formula">
+
+$$
+\theta = \tan^{-1}\!\left(\frac{A_y}{A_x}\right)
+$$
+
+where $A_x$ and $A_y$ are the components of $\vec{A}$ and $\theta$ is its angle from the positive $x$-axis.
+
+</FormulaCard>
+
+<Callout type="warning">
+A calculator returns $\tan^{-1}$ only between $-90^\circ$ and $90^\circ$, so it cannot tell $(3, 4)$ from $(-3, -4)$. Always check the signs of $A_x$ and $A_y$ to place the vector in the correct quadrant before trusting the angle.
+</Callout>
+
+Components let us analyze each direction independently — the idea that makes kinematics and Newton's laws tractable. A problem in a plane becomes two simpler problems along straight lines.
+
+<QuickCheck question="A vector has components A_x = 3 and A_y = 4. What is its magnitude?">
+
+Apply the magnitude formula: $|\vec{A}| = \sqrt{3^2 + 4^2} = \sqrt{25} = 5$.
+
+</QuickCheck>

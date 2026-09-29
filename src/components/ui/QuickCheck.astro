@@ -1,4 +1,7 @@
 ---
+import Icon from './Icon.astro';
+
+// Practice question with a click-to-reveal worked answer.
 interface Props {
 	question: string;
 	buttonText?: string;
@@ -7,14 +10,10 @@ interface Props {
 const { question, buttonText = 'Reveal Explanation' } = Astro.props;
 ---
 
-<div class="pd-quick-check not-content">
+<div class="pd-card pd-quick-check not-content">
 	<div class="pd-quick-check__header">
-		<span class="pd-quick-check__badge">
-			<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-				<circle cx="12" cy="12" r="10" />
-				<path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
-				<line x1="12" y1="17" x2="12.01" y2="17" />
-			</svg>
+		<span class="pd-badge">
+			<Icon name="help" size={13} />
 			Quick Check
 		</span>
 		<p class="pd-quick-check__question">{question}</p>
@@ -23,11 +22,9 @@ const { question, buttonText = 'Reveal Explanation' } = Astro.props;
 	<details class="pd-quick-check__details">
 		<summary class="pd-quick-check__summary">
 			<span>{buttonText}</span>
-			<svg class="pd-quick-check__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-				<polyline points="6 9 12 15 18 9" />
-			</svg>
+			<span class="pd-quick-check__chevron"><Icon name="chevron" size={14} /></span>
 		</summary>
-		<div class="pd-quick-check__answer">
+		<div class="pd-quick-check__answer pd-flow">
 			<slot />
 		</div>
 	</details>
@@ -37,9 +34,6 @@ const { question, buttonText = 'Reveal Explanation' } = Astro.props;
 	.pd-quick-check {
 		margin: 2rem 0;
 		padding: 1.35rem 1.45rem;
-		background: var(--pd-surface);
-		border: 1px solid var(--pd-rule);
-		border-radius: var(--pd-radius);
 	}
 
 	.pd-quick-check__header {
@@ -47,18 +41,6 @@ const { question, buttonText = 'Reveal Explanation' } = Astro.props;
 		flex-direction: column;
 		gap: 0.55rem;
 		margin-bottom: 0.95rem;
-	}
-
-	.pd-quick-check__badge {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.4rem;
-		width: fit-content;
-		font-size: 0.72rem;
-		font-weight: 600;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--sl-color-accent);
 	}
 
 	.pd-quick-check__question {
@@ -100,6 +82,7 @@ const { question, buttonText = 'Reveal Explanation' } = Astro.props;
 	}
 
 	.pd-quick-check__chevron {
+		display: inline-flex;
 		transition: transform 200ms ease;
 	}
 
@@ -116,17 +99,5 @@ const { question, buttonText = 'Reveal Explanation' } = Astro.props;
 		font-size: 0.92rem;
 		line-height: 1.6;
 		color: var(--sl-color-gray-2);
-	}
-
-	.pd-quick-check__answer :global(p) {
-		margin: 0.35rem 0;
-	}
-
-	.pd-quick-check__answer :global(p:first-child) {
-		margin-top: 0;
-	}
-
-	.pd-quick-check__answer :global(p:last-child) {
-		margin-bottom: 0;
 	}
 </style>

@@ -22,6 +22,14 @@ const [only] = sidebar;
 const lone = sidebar.length === 1 ? only : undefined;
 const heading = lone?.type === 'group' || lone?.isCurrent ? lone.label : undefined;
 const chapters = lone?.type === 'group' ? lone.entries : [];
+
+type Entry = (typeof sidebar)[number];
+const countLinks = (entries: Entry[]): number =>
+	entries.reduce((n, entry) => n + (entry.type === 'group' ? countLinks(entry.entries) : 1), 0);
+
+// A branch's index page always comes first (see generateSidebar) and is not a lesson.
+const overviewLinks = chapters[0]?.type === 'link' ? 1 : 0;
+const lessons = countLinks(chapters) - overviewLinks;
 ---
 
 <SidebarPersister>
@@ -29,14 +37,39 @@ const chapters = lone?.type === 'group' ? lone.entries : [];
 		heading ? (
 			<div class="pd-branch-nav">
 				<h2 class="pd-branch-label">{heading}</h2>
+				{lessons > 0 && <p class="pd-branch-meta">{lessons} {lessons === 1 ? 'lesson' : 'lessons'}</p>}
 				{chapters.length > 0 && <SidebarSublist sublist={chapters} nested />}
 			</div>
 		) : (
 			<SidebarSublist sublist={sidebar} />
 		)
 	}
+	<script is:inline aria-hidden="true">
+		// Starlight opens any group holding the current page; close them on a fresh visit.
+		// When it has saved state to restore, that state is the reader's choice, so keep it.
+		(() => {
+			if (window._starlightScrollRestore !== undefined) return;
+			for (const details of document.querySelectorAll('sl-sidebar-state-persist details[open]')) {
+				details.open = false;
+			}
+		})();
+	</script>
 </SidebarPersister>
 
 <div class="md:sl-hidden">
 	<MobileMenuFooter />
 </div>
+
+<script>
+	// Runs after Starlight restores the saved scroll, so it only moves the pane when
+	// the current page is still out of view.
+	const pane = document.getElementById('starlight__sidebar');
+	const current = pane?.querySelector<HTMLElement>('[aria-current="page"]');
+	if (pane && current && current.offsetParent !== null) {
+		const paneBox = pane.getBoundingClientRect();
+		const box = current.getBoundingClientRect();
+		if (box.top < paneBox.top || box.bottom > paneBox.bottom) {
+			pane.scrollTop += box.top - paneBox.top - (paneBox.height - box.height) / 2;
+		}
+	}
+</script>

@@ -32,8 +32,8 @@ Every section or chapter page is an `.mdx` (or `.md`) file located in `src/conte
 
 ```mdx
 ---
-title: Topic Name
-description: A short one-line summary of what this section covers
+title: Topic name
+description: A short one-line summary of what this section covers.
 order: 1
 ---
 
@@ -53,7 +53,7 @@ The first paragraph serves as the lede hook. It is automatically styled with pro
   </figure>
 </div>
 
-<Callout type="definition" title="Units and Dimensions">
+<Callout type="units">
 The SI unit of position is meter ($\text{m}$), and its dimension is $[\text{L}]$.
 </Callout>
 
@@ -81,7 +81,7 @@ Used to frame equations with dedicated surfaces, badges, and clean single-line d
 
 **Props:**
 - `title` (string, required): The formula name (e.g. `Position Vector in 3D`, `Time of Flight`).
-- `label` (string, optional): Pill badge text (defaults to `Formula`).
+- `label` (optional): Pill badge text. One of `Key Formula` (default choice), `Definition`, `Vector Form`, `Scalar Form`, or `Equation N` for numbered equations. Defaults to `Formula`.
 - `description` (string, optional): Short introductory note above the equation.
 - `note` (string, optional): Conceptual insight shown at the bottom.
 
@@ -104,21 +104,25 @@ where $(x, y, z)$ are the coordinates of the particle and $(x_0, y_0, z_0)$ are 
 Editorial callouts for units, definitions, key intuitions, and common traps.
 
 **Props:**
-- `type` (`'definition'` | `'tip'` | `'warning'` | `'note'`): Changes the icon and accent border.
-- `title` (string, optional): Custom heading (defaults to standard label for type).
+- `type` (`'definition'` | `'tip'` | `'warning'` | `'note'` | `'units'`): Changes the icon and accent border. `units` is the standard "Units and Dimensions" box.
+- `title` (string, optional): Custom heading. Omit it when the default fits (`tip` → Key Intuition, `warning` → Common Pitfall, `units` → Units and Dimensions).
 
 **Usage:**
 ```mdx
-<Callout type="definition" title="Units and Dimensions">
+<Callout type="units">
 The SI unit of position is meter ($\text{m}$), and its dimension is $[\text{L}]$.
 </Callout>
 
-<Callout type="tip" title="Key Intuition">
+<Callout type="tip">
 Horizontal and vertical motions are completely independent. Gravity only accelerates the vertical component.
 </Callout>
 
-<Callout type="warning" title="Common Pitfall">
+<Callout type="warning">
 Remember that at the apex of projectile flight, vertical velocity is zero, but horizontal velocity is not!
+</Callout>
+
+<Callout type="definition" title="Kinematics vs. Dynamics">
+Kinematics describes motion; dynamics explains its causes.
 </Callout>
 ```
 

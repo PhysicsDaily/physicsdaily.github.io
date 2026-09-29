@@ -49,7 +49,7 @@ Starlight automatically adds level-two and level-three headings to the page tabl
 
 ### Reading order and the Next link
 
-The sidebar is generated from the files in `src/content/docs/` by `src/data/generateSidebar.mjs` — adding a page means creating the file, and the sidebar picks it up on the next build. Reading order comes from an `order` field in each page's frontmatter (pages without one sort alphabetically after ordered ones; a directory's index page always comes first):
+The sidebar is generated from the files in `src/content/docs/` by `src/lib/generateSidebar.mjs` — adding a page means creating the file, and the sidebar picks it up on the next build. Reading order comes from an `order` field in each page's frontmatter (pages without one sort alphabetically after ordered ones; a directory's index page always comes first):
 
 ```md
 ---
@@ -99,7 +99,7 @@ Files that should not be processed, such as downloadable PDFs, can go in `public
 Change a chapter from `.md` to `.mdx`, import the reusable component, and pass the video ID:
 
 ```mdx
-import YouTube from '../../../components/YouTube.astro';
+import YouTube from '../../../components/ui/YouTube.astro';
 
 <YouTube id="VIDEO_ID" title="Introduction to kinematics" />
 ```
@@ -111,7 +111,7 @@ Videos use YouTube's privacy-enhanced `youtube-nocookie.com` domain and load laz
 Use the generic simulation component in an MDX chapter:
 
 ```mdx
-import Simulation from '../../../components/Simulation.astro';
+import Simulation from '../../../components/ui/Simulation.astro';
 
 <Simulation
   src="https://phet.colorado.edu/sims/html/projectile-motion/latest/projectile-motion_en.html"

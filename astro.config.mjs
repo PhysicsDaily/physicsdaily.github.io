@@ -5,7 +5,7 @@ import starlight from '@astrojs/starlight';
 import rehypeKatex from 'rehype-katex';
 import remarkMath from 'remark-math';
 import { generateSidebar } from './src/lib/generateSidebar.mjs';
-import { site, analytics, branches } from './src/site.config.ts';
+import { site, branches } from './src/site.config.ts';
 
 const [repositoryOwner = '', repositoryName = ''] = (process.env.GITHUB_REPOSITORY ?? '').split('/');
 const isGitHubPagesBuild = Boolean(repositoryOwner && repositoryName);
@@ -40,35 +40,6 @@ const redirects = Object.fromEntries([
 	...branches.filter((b) => !b.live).map((b) => [b.slug, `${basePrefix}/coming-soon/`]),
 ]);
 
-// Analytics snippets. Loaded conditionally (not via static attrs) so dev sessions
-// on localhost/127.0.0.1 never report, matching the guard in Head.astro.
-/** @type {{ tag: 'script'; content: string }[]} */
-const analyticsHead = [
-	{
-		tag: 'script',
-		content: `if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-var ga = document.createElement('script');
-ga.async = true;
-ga.src = 'https://www.googletagmanager.com/gtag/js?id=${analytics.gaId}';
-document.head.appendChild(ga);
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${analytics.gaId}');
-}`,
-	},
-	{
-		tag: 'script',
-		content: `if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-  var cf = document.createElement('script');
-  cf.type = 'module';
-  cf.src = 'https://static.cloudflareinsights.com/beacon.min.js';
-  cf.setAttribute('data-cf-beacon', '{"token": "${analytics.cloudflareToken}"}');
-  document.head.appendChild(cf);
-}`,
-	},
-];
-
 export default defineConfig({
 	site: process.env.SITE_URL ?? (isGitHubPagesBuild ? `https://${host}` : site.url),
 	base,
@@ -93,8 +64,8 @@ export default defineConfig({
 				ThemeProvider: './src/components/starlight/ThemeProvider.astro',
 				ThemeSelect: './src/components/starlight/ThemeSelect.astro',
 			},
+			tableOfContents: false,
 			routeMiddleware: './src/routeMiddleware.ts',
-			head: analyticsHead,
 			customCss: ['./src/styles/fonts.css', 'katex/dist/katex.min.css', './src/styles/global.css'],
 			// The sidebar is generated from the files in src/content/docs/ — adding a page
 			// means creating the file; its `order` frontmatter places it in reading order.

@@ -2,10 +2,11 @@
 import { Icon } from '@astrojs/starlight/components';
 import { site } from '../../site.config';
 const sidebarKey = site.sidebarStorageKey;
+const themeKey = site.themeStorageKey;
 ---
 
 {/* This is intentionally inlined to avoid FOUC. */}
-<script is:inline define:vars={{ sidebarKey }}>
+<script is:inline define:vars={{ sidebarKey, themeKey }}>
 	(() => {
 		try {
 			if (localStorage.getItem(sidebarKey) === 'true') {
@@ -16,7 +17,7 @@ const sidebarKey = site.sidebarStorageKey;
 
 	window.StarlightThemeProvider = (() => {
 		const storedTheme =
-			typeof localStorage !== 'undefined' && localStorage.getItem('starlight-theme');
+			typeof localStorage !== 'undefined' && localStorage.getItem(themeKey);
 		const preferred = window.matchMedia('(prefers-color-scheme: light)').matches
 			? 'light'
 			: 'dark';

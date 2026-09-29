@@ -1,4 +1,5 @@
 import { defineRouteMiddleware, type StarlightRouteData } from '@astrojs/starlight/route-data';
+import { isHome } from './lib/route';
 
 type SidebarEntry = StarlightRouteData['sidebar'][number];
 
@@ -18,13 +19,7 @@ export const onRequest = defineRouteMiddleware(async (context, next) => {
 	const route = context.locals.starlightRoute;
 
 	// Homepage title should be the bare site title, not "PhysicsDaily | PhysicsDaily".
-	const isHome =
-		route.id === '' ||
-		route.id === 'index' ||
-		route.entry?.id === 'index.mdx' ||
-		route.entry?.id === 'index' ||
-		Boolean(route.entry?.data?.hero && route.entry?.data?.template === 'splash');
-	if (isHome) {
+	if (isHome(route)) {
 		const titleTag = route.head.find((tag) => tag.tag === 'title');
 		if (titleTag && route.entry?.data?.title) {
 			titleTag.content = route.entry.data.title;

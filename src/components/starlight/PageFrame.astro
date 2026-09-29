@@ -2,6 +2,8 @@
 import MobileMenuToggle from '@astrojs/starlight/components/MobileMenuToggle.astro';
 
 const { hasSidebar } = Astro.locals.starlightRoute;
+const collapseLabel = 'Collapse sidebar';
+const expandLabel = 'Expand sidebar';
 ---
 
 <div class="page sl-flex">
@@ -10,13 +12,12 @@ const { hasSidebar } = Astro.locals.starlightRoute;
 		hasSidebar && (
 			<nav class="sidebar print:hidden" aria-label={Astro.locals.t('sidebarNav.accessibleLabel')}>
 				<MobileMenuToggle />
-				<pd-sidebar-toggle>
+				<pd-sidebar-toggle data-collapse-label={collapseLabel} data-expand-label={expandLabel}>
 					<button
 						type="button"
 						aria-expanded="true"
 						aria-controls="starlight__sidebar"
-						aria-label="Collapse sidebar"
-						title="Collapse sidebar"
+						aria-label={collapseLabel}
 					>
 						<span class="sidebar-panel-icon" aria-hidden="true"></span>
 					</button>
@@ -61,8 +62,8 @@ const { hasSidebar } = Astro.locals.starlightRoute;
 		setCollapsed(collapsed: boolean, persist = true) {
 			document.documentElement.toggleAttribute('data-sidebar-collapsed', collapsed);
 			this.button.setAttribute('aria-expanded', String(!collapsed));
-			this.button.setAttribute('aria-label', collapsed ? 'Expand sidebar' : 'Collapse sidebar');
-			this.button.title = collapsed ? 'Expand sidebar' : 'Collapse sidebar';
+			const label = (collapsed ? this.dataset.expandLabel : this.dataset.collapseLabel) ?? '';
+			this.button.setAttribute('aria-label', label);
 			this.syncSidebarAccessibility();
 			if (persist) {
 				try {
@@ -194,6 +195,27 @@ const { hasSidebar } = Astro.locals.starlightRoute;
 			pd-sidebar-toggle button:hover {
 				color: var(--sl-color-white);
 				background: var(--pd-surface-hover);
+			}
+
+			pd-sidebar-toggle button::after {
+				position: absolute;
+				inset-block-start: 50%;
+				inset-inline-start: calc(100% + 0.5rem);
+				transform: translateY(-50%);
+				padding: 0.3rem 0.6rem;
+				border-radius: 0.3rem;
+				background: var(--sl-color-white);
+				color: var(--sl-color-black);
+				font-size: 0.75rem;
+				white-space: nowrap;
+				content: attr(aria-label);
+				opacity: 0;
+				pointer-events: none;
+				transition: opacity 150ms ease;
+			}
+
+			pd-sidebar-toggle button:is(:hover, :focus-visible)::after {
+				opacity: 1;
 			}
 
 			.sidebar-panel-icon {
