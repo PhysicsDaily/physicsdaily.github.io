@@ -24,7 +24,7 @@ const chapterCount = (slug: string): number => getChapters(sidebar, slug).length
 		</p>
 	</header>
 
-	<ol class="pd-track">
+	<ol class="pd-branches">
 		{
 			branches.map((branch, index) => {
 				const number = String(index + 1).padStart(2, '0');
@@ -32,9 +32,8 @@ const chapterCount = (slug: string): number => getChapters(sidebar, slug).length
 				const body = (
 					<>
 						<span class="pd-branch__num">{number}</span>
-						<div class="pd-branch__body">
-							<h3 class="pd-branch__name">{branch.name}</h3>
-						</div>
+						<h3 class="pd-branch__name">{branch.name}</h3>
+						<p class="pd-branch__desc">{branch.description}</p>
 						<span class="pd-branch__meta">
 							{branch.live ? (
 								<>

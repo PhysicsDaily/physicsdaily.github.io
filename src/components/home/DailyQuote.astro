@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import { getDailyFeature } from '../../lib/dailyQuote';
+import { quotePortrait } from '../../site.config';
+
+// Fixed at build time, so the daily rebuild is what advances it. Deliberately
+// not randomised on the client: that would swap the portrait after first paint.
+const { scientist, quote } = getDailyFeature();
+---
+
+<section class="pd-section not-content" aria-labelledby="pd-quote-title">
+	<header class="pd-section__head">
+		<p class="pd-eyebrow">Quote of the day</p>
+		<h2 id="pd-quote-title" class="pd-title">In their own words</h2>
+	</header>
+
+	<figure class="pd-quote-card">
+		<Image
+			class="pd-portrait"
+			src={scientist.portrait}
+			alt={`Portrait of ${scientist.name}.`}
+			{...quotePortrait}
+			style={`object-position: ${scientist.focus}`}
+			loading="lazy"
+		/>
+		<figcaption class="pd-quote-card__body">
+			<blockquote class="pd-quote">“{quote.text}”</blockquote>
+			<p class="pd-quote__by">
+				<span class="pd-quote__name">{scientist.name}</span>
+				<span class="pd-quote__lived">{scientist.lived} · {scientist.field}</span>
+				<span class="pd-quote__src">
+					{quote.reported ? 'As ' : ''}{quote.source}, {quote.year}
+					{quote.translated ? ' (translated)' : ''}
+				</span>
+			</p>
+			<p class="pd-quote__credit">{scientist.credit}</p>
+		</figcaption>
+	</figure>
+</section>

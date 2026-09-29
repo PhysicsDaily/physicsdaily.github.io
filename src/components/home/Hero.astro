@@ -1,8 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import ArrowIcon from '../ui/ArrowIcon.astro';
-import { getDailyFeature } from '../../lib/dailyQuote';
-import { heroPortrait } from '../../site.config';
+import { getChapters } from '../../lib/chapters';
+import { branches } from '../../site.config';
 import '../../styles/home.css';
 
 // Starlight renders this component in place of its default hero whenever a page
@@ -10,11 +9,16 @@ import '../../styles/home.css';
 const { data } = Astro.locals.starlightRoute.entry;
 const { title = data.title, tagline, actions = [] } = data.hero ?? {};
 const eyebrow = 'eyebrow' in data ? (data.eyebrow as string | undefined) : undefined;
-const facts = 'facts' in data ? ((data.facts as string[] | undefined) ?? []) : [];
 
-// Fixed at build time, so the daily rebuild is what advances it. Deliberately
-// not randomised on the client: that would swap the portrait after first paint.
-const { scientist, quote } = getDailyFeature();
+const sidebar = Astro.locals.starlightRoute.sidebar;
+const liveBranches = branches.filter((branch) => branch.live);
+const chapters = liveBranches.flatMap((branch) => getChapters(sidebar, branch.slug));
+
+const stats = [
+	{ value: String(chapters.length), label: chapters.length === 1 ? 'Chapter' : 'Chapters' },
+	{ value: `${liveBranches.length} of ${branches.length}`, label: 'Branches live' },
+	{ value: 'Free', label: 'No account needed' },
+];
 
 // Starlight's page-title anchor target, used by the skip link and search.
 const PAGE_TITLE_ID = '_top';
@@ -23,7 +27,7 @@ const PAGE_TITLE_ID = '_top';
 <div class="pd-home">
 	<section class="pd-hero">
 		<div class="pd-hero__copy">
-			{eyebrow && <p class="pd-eyebrow">{eyebrow}</p>}
+			{eyebrow && <p class="pd-badge pd-hero__badge">{eyebrow}</p>}
 			<h1 id={PAGE_TITLE_ID} data-page-title class="pd-hero__title" set:html={title} />
 			{tagline && <p class="pd-hero__tagline" set:html={tagline} />}
 			{
@@ -45,38 +49,66 @@ const PAGE_TITLE_ID = '_top';
 					</div>
 				)
 			}
-			{
-				facts.length > 0 && (
-					<ul class="pd-hero__facts">
-						{facts.map((fact) => (
-							<li>{fact}</li>
-						))}
-					</ul>
-				)
-			}
+			<dl class="pd-stats">
+				{
+					stats.map((stat) => (
+						<div class="pd-stat">
+							<dt>{stat.label}</dt>
+							<dd>{stat.value}</dd>
+						</div>
+					))
+				}
+			</dl>
 		</div>
 
-		<figure class="pd-figure pd-figure--quote">
-			<Image
-				class="pd-portrait"
-				src={scientist.portrait}
-				alt={`Portrait of ${scientist.name}.`}
-				{...heroPortrait}
-				style={`object-position: ${scientist.focus}`}
-				loading="eager"
-				fetchpriority="high"
-			/>
+		<figure class="pd-diagram">
+			<svg viewBox="0 0 480 328" role="img" aria-labelledby="pd-diagram-title">
+				<title id="pd-diagram-title">
+					A body launched at angle theta with initial velocity v-zero follows a parabola under
+					gravity, with constant horizontal velocity v-x and a range R.
+				</title>
+				<defs>
+					<marker id="pd-head-accent" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+						<path d="M1 1 9 5 1 9" class="pd-diagram__head pd-diagram__head--accent" />
+					</marker>
+					<marker id="pd-head-muted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+						<path d="M1 1 9 5 1 9" class="pd-diagram__head" />
+					</marker>
+				</defs>
+
+				<line class="pd-diagram__axis" x1="24" y1="270" x2="456" y2="270" />
+				<line class="pd-diagram__guide" x1="240" y1="70" x2="240" y2="270" />
+				<line class="pd-diagram__guide" x1="92" y1="166" x2="92" y2="270" />
+				<line class="pd-diagram__guide" x1="40" y1="296" x2="440" y2="296" marker-start="url(#pd-head-muted)" marker-end="url(#pd-head-muted)" />
+
+				<path class="pd-diagram__path" d="M40 270 Q240 -130 440 270" pathLength="1" />
+
+				<line class="pd-diagram__vector" x1="40" y1="270" x2="92" y2="166" marker-end="url(#pd-head-accent)" />
+				<line class="pd-diagram__vector" x1="240" y1="70" x2="304" y2="70" marker-end="url(#pd-head-accent)" />
+				<line class="pd-diagram__vector pd-diagram__vector--muted" x1="340" y1="120" x2="340" y2="170" marker-end="url(#pd-head-muted)" />
+				<path class="pd-diagram__guide" d="M68 270 A28 28 0 0 0 52.5 245" />
+
+				<g class="pd-diagram__dots">
+					<circle cx="40" cy="270" r="4" />
+					<circle cx="140" cy="120" r="4" />
+					<circle cx="240" cy="70" r="5" />
+					<circle cx="340" cy="120" r="4" />
+					<circle cx="440" cy="270" r="4" />
+				</g>
+
+				<g class="pd-diagram__labels">
+					<text x="104" y="158">v<tspan dy="4" font-size="11">0</tspan></text>
+					<text x="72" y="258">θ</text>
+					<text x="100" y="228">v<tspan dy="4" font-size="11">y</tspan></text>
+					<text x="310" y="74">v<tspan dy="4" font-size="11">x</tspan></text>
+					<text x="350" y="160">g</text>
+					<text x="240" y="318" text-anchor="middle">R</text>
+				</g>
+			</svg>
 			<figcaption>
-				<blockquote class="pd-quote">“{quote.text}”</blockquote>
-				<p class="pd-quote__by">
-					<span class="pd-quote__name">{scientist.name}</span>
-					<span class="pd-quote__lived">{scientist.lived} · {scientist.field}</span>
-					<span class="pd-quote__src">
-						{quote.reported ? 'As ' : ''}{quote.source}, {quote.year}
-						{quote.translated ? ' (translated)' : ''}
-					</span>
-				</p>
-				<p class="pd-quote__credit">{scientist.credit}</p>
+				<b>Projectile motion</b>
+				<span class="pd-diagram__eq"><i>x</i> = <i>v</i><sub>0</sub> cos <i>θ</i> · <i>t</i></span>
+				<span class="pd-diagram__eq"><i>y</i> = <i>v</i><sub>0</sub> sin <i>θ</i> · <i>t</i> − ½<i>gt</i><sup>2</sup></span>
 			</figcaption>
 		</figure>
 	</section>

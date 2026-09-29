@@ -1,21 +1,18 @@
 ---
-// Extends Starlight's head with preloads for the two latin variable fonts
-// and the homepage hero image.
+// Extends Starlight's head with preloads for the two latin variable fonts.
 // Combined with `font-display: optional` in fonts.css, preloading guarantees
 // zero layout shift (CLS): fonts ready on first paint render immediately; on slow
 // networks, fallbacks render without ever swapping mid-session.
 // Importing with ?url makes Vite emit the same hashed asset the bundled CSS
 // references, so the preload always points at the real file.
-import { getImage } from 'astro:assets';
-import { getDailyFeature } from '../../lib/dailyQuote';
 import { basePrefix } from '../../lib/paths';
 import { is404 as isNotFound, isComingSoon as isPlaceholder } from '../../lib/route';
-import { analytics, branches, heroPortrait, legacyBranchSlugs, site } from '../../site.config';
+import { analytics, branches, legacyBranchSlugs, site } from '../../site.config';
 import sourceSerifWoff2 from '@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2?url';
 import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 
 const route = Astro.locals.starlightRoute;
-const { head, entry } = route;
+const { head } = route;
 const is404 = isNotFound(route);
 const isComingSoon = isPlaceholder(route);
 
@@ -40,12 +37,6 @@ const analyticsScript = `if (!['localhost', '127.0.0.1'].includes(window.locatio
 	cf.setAttribute('data-cf-beacon', '{"token": "${analytics.cloudflareToken}"}');
 	document.head.appendChild(cf);
 }`;
-
-let heroPreload: Awaited<ReturnType<typeof getImage>> | undefined;
-if (entry?.data?.hero) {
-	const { scientist } = getDailyFeature();
-	heroPreload = await getImage({ src: scientist.portrait, ...heroPortrait });
-}
 
 // URL prefixes a visitor might type for a not-yet-published branch: canonical
 // slugs (driven by the `live` flag) plus legacy names, from site.config.ts.
@@ -94,16 +85,4 @@ const siteNameSchema = {
 <script is:inline type="application/ld+json" set:html={JSON.stringify(siteNameSchema)} />
 <link rel="preload" href={sourceSerifWoff2} as="font" type="font/woff2" crossorigin />
 <link rel="preload" href={interWoff2} as="font" type="font/woff2" crossorigin />
-{
-	heroPreload && (
-		<link
-			rel="preload"
-			as="image"
-			href={heroPreload.src}
-			imagesrcset={heroPreload.srcSet.attribute}
-			imagesizes={heroPortrait.sizes}
-			fetchpriority="high"
-		/>
-	)
-}
 

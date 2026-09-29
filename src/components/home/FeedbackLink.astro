@@ -7,13 +7,15 @@ const feedbackUrl = `${base}feedback/`;
 ---
 
 <section class="pd-section not-content" id="feedback">
-	<header class="pd-section__head">
-		<p class="pd-eyebrow">{feedbackConfig.homeSectionEyebrow}</p>
-		<h2 class="pd-title">{feedbackConfig.homeSectionTitle}</h2>
-		<p class="pd-lede">{feedbackConfig.homeSectionLede}</p>
-		<a href={feedbackUrl} class="pd-btn pd-btn--ghost">
+	<div class="pd-cta">
+		<div class="pd-cta__copy">
+			<p class="pd-eyebrow">{feedbackConfig.homeSectionEyebrow}</p>
+			<h2 class="pd-title">{feedbackConfig.homeSectionTitle}</h2>
+			<p class="pd-lede">{feedbackConfig.homeSectionLede}</p>
+		</div>
+		<a href={feedbackUrl} class="pd-btn pd-btn--primary">
 			{feedbackConfig.homeButtonText}
 			<ArrowIcon />
 		</a>
-	</header>
+	</div>
 </section>

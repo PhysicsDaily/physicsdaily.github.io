@@ -1,6 +1,6 @@
-/*
+﻿/*
  * Homepage sections and the shared primitives they use (.pd-eyebrow, .pd-title,
- * .pd-lede, .pd-btn). Imported once, in src/components/home/Hero.astro —
+ * .pd-lede, .pd-btn). Imported once, in src/components/home/Hero.astro â€”
  * homepage components must not import it themselves. (Vite folds this file into
  * the site's shared stylesheet, so every page ships it; the split exists to keep
  * homepage styles organised in one place, not to trim other pages.)
@@ -23,13 +23,6 @@
 	letter-spacing: 0.16em;
 	text-transform: uppercase;
 	color: var(--sl-color-gray-3);
-}
-
-.pd-eyebrow::after {
-	flex: 1;
-	height: 1px;
-	background: var(--pd-rule);
-	content: '';
 }
 
 .pd-title {
@@ -55,8 +48,9 @@
 .pd-btn {
 	display: inline-flex;
 	align-items: center;
+	justify-content: center;
 	gap: 0.5rem;
-	padding: 0.7rem 1.15rem;
+	padding: 0.75rem 1.25rem;
 	font-size: 0.95rem;
 	font-weight: 600;
 	line-height: 1;
@@ -114,23 +108,33 @@
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
-	margin-block-end: clamp(2rem, 1.5rem + 1.5vw, 2.75rem);
-}
-
-.pd-section__head .pd-btn {
-	align-self: flex-start;
-	margin-block-start: 0.5rem;
+	margin-block-end: clamp(1.75rem, 1.4rem + 1.5vw, 2.5rem);
 }
 
 /* --- Hero ---------------------------------------------------------------- */
 
 .pd-hero {
+	position: relative;
 	display: grid;
 	gap: clamp(2.5rem, 2rem + 3vw, 4rem);
-	padding-block: clamp(2.5rem, 1.5rem + 5vw, 5.5rem);
+	padding-block: clamp(2.5rem, 1.5rem + 5vw, 5.5rem) clamp(3rem, 2rem + 4vw, 5rem);
 }
 
-/* Keep the figure's intrinsic SVG width from setting the column's minimum. */
+/* A faint blueprint grid fading out behind the hero copy. */
+.pd-hero::before {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background-image:
+		linear-gradient(var(--pd-rule) 1px, transparent 1px),
+		linear-gradient(90deg, var(--pd-rule) 1px, transparent 1px);
+	background-size: 3rem 3rem;
+	opacity: 0.45;
+	mask-image: radial-gradient(ellipse 70% 80% at 30% 20%, #000, transparent 75%);
+	content: '';
+	pointer-events: none;
+}
+
 .pd-hero > * {
 	min-width: 0;
 }
@@ -142,9 +146,11 @@
 	gap: 1.5rem;
 }
 
-.pd-hero__copy .pd-eyebrow {
-	align-self: stretch;
-	max-width: 26rem;
+.pd-hero__badge {
+	padding: 0.4rem 0.75rem;
+	background: var(--sl-color-accent-low);
+	border: 1px solid color-mix(in srgb, var(--sl-color-accent) 30%, transparent);
+	border-radius: 999px;
 }
 
 .pd-hero__title {
@@ -160,6 +166,7 @@
 
 .pd-hero__tagline {
 	max-width: 36rem;
+	margin: 0;
 	font-size: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
 	line-height: 1.6;
 	color: var(--sl-color-gray-2);
@@ -169,25 +176,38 @@
 .pd-hero__actions {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.75rem 1rem;
-	margin-block-start: 0.25rem;
+	gap: 0.75rem;
 }
 
-.pd-hero__facts {
+.pd-stats {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.4rem 0.9rem;
-	padding: 0;
-	margin: 0;
-	font-size: 0.8125rem;
-	color: var(--sl-color-gray-3);
-	list-style: none;
+	width: 100%;
+	gap: 1.25rem 2.5rem;
+	padding-block-start: 1.5rem;
+	margin: 0.5rem 0 0;
+	border-top: 1px solid var(--pd-rule);
 }
 
-.pd-hero__facts li + li::before {
-	margin-inline-end: 0.9rem;
-	color: var(--sl-color-gray-4);
-	content: '·';
+.pd-stat {
+	display: flex;
+	flex-direction: column-reverse;
+	gap: 0.15rem;
+}
+
+.pd-stat dd {
+	margin: 0;
+	font-family: var(--pd-font-display);
+	font-size: 1.6rem;
+	font-weight: 600;
+	line-height: 1.1;
+	font-variant-numeric: tabular-nums;
+	color: var(--sl-color-white);
+}
+
+.pd-stat dt {
+	font-size: 0.78rem;
+	color: var(--sl-color-gray-3);
 }
 
 @media (min-width: 56rem) {
@@ -197,34 +217,315 @@
 	}
 }
 
-/* --- Figure -------------------------------------------------------------- */
+/* --- Hero diagram -------------------------------------------------------- */
 
-.pd-figure {
+.pd-diagram {
+	width: 100%;
+	max-width: 30rem;
 	margin: 0;
 	overflow: hidden;
 	background: var(--pd-surface);
 	border: 1px solid var(--pd-rule);
-	border-radius: var(--pd-radius);
+	border-radius: var(--pd-radius-lg);
 }
 
-.pd-figure svg {
+@media (min-width: 56rem) {
+	.pd-diagram {
+		justify-self: end;
+	}
+}
+
+.pd-diagram svg {
 	display: block;
 	width: 100%;
 	height: auto;
+	padding: 1rem 1rem 0;
+}
+
+.pd-diagram__axis,
+.pd-diagram__guide {
+	fill: none;
+	stroke: var(--sl-color-gray-4);
+	stroke-width: 1.25;
+}
+
+.pd-diagram__guide {
+	stroke-dasharray: 4 4;
+}
+
+.pd-diagram__path {
+	fill: none;
+	stroke: var(--sl-color-accent);
+	stroke-width: 2.25;
+	stroke-linecap: round;
+	stroke-dasharray: 1;
+	stroke-dashoffset: 0;
+	animation: pd-draw 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+
+.pd-diagram__vector {
+	stroke: var(--sl-color-accent);
+	stroke-width: 2;
+	stroke-linecap: round;
+}
+
+.pd-diagram__vector--muted {
+	stroke: var(--sl-color-gray-3);
+}
+
+.pd-diagram__head {
+	fill: none;
+	stroke: var(--sl-color-gray-3);
+	stroke-width: 1.6;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.pd-diagram__head--accent {
+	stroke: var(--sl-color-accent);
+}
+
+.pd-diagram__dots circle {
+	fill: var(--sl-color-white);
+	stroke: var(--sl-color-accent);
+	stroke-width: 2;
+}
+
+.pd-diagram__labels text {
+	font-family: var(--pd-font-display);
+	font-size: 16px;
+	font-style: italic;
+	fill: var(--sl-color-gray-1);
+}
+
+.pd-diagram figcaption {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.35rem 1.25rem;
+	padding: 0.85rem 1.25rem;
+	font-size: 0.8125rem;
+	color: var(--sl-color-gray-3);
+	border-top: 1px solid var(--pd-rule);
+}
+
+.pd-diagram figcaption b {
+	font-weight: 600;
+	color: var(--sl-color-gray-1);
+}
+
+.pd-diagram__eq {
+	font-family: var(--pd-font-display);
+	font-size: 0.95rem;
+	color: var(--sl-color-gray-2);
+}
+
+@keyframes pd-draw {
+	from {
+		stroke-dashoffset: 1;
+	}
+
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+/* --- Curriculum ---------------------------------------------------------- */
+
+.pd-branches {
+	display: grid;
+	gap: 1rem;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.pd-branches > li {
+	display: flex;
+	margin: 0;
+}
+
+.pd-branch {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	gap: 0.5rem;
+	padding: 1.35rem 1.4rem;
+	color: inherit;
+	text-decoration: none;
+	background: var(--pd-surface);
+	border: 1px solid var(--pd-rule);
+	border-radius: var(--pd-radius-lg);
+	transition:
+		border-color 160ms ease,
+		background-color 160ms ease,
+		transform 160ms ease;
+}
+
+.pd-branch__num {
+	font-family: var(--pd-font-display);
+	font-size: 0.95rem;
+	font-variant-numeric: tabular-nums;
+	color: var(--sl-color-gray-3);
+}
+
+.pd-branch__name {
+	margin: 0;
+	font-family: var(--pd-font-display);
+	font-size: 1.3rem;
+	font-weight: 600;
+	line-height: 1.25;
+	letter-spacing: -0.015em;
+	color: var(--sl-color-white);
+}
+
+.pd-branch__desc {
+	margin: 0;
+	font-size: 0.9rem;
+	line-height: 1.55;
+	color: var(--sl-color-gray-2);
+	text-wrap: pretty;
+}
+
+.pd-branch__meta {
+	display: flex;
+	align-items: center;
+	gap: 0.55rem;
+	margin-block-start: auto;
+	padding-block-start: 0.85rem;
+	font-size: 0.75rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-3);
+	white-space: nowrap;
+}
+
+.pd-branch__meta svg {
+	margin-inline-start: auto;
+	color: var(--sl-color-accent);
+	transition: transform 160ms ease;
+}
+
+.pd-branch__dot {
+	width: 0.4rem;
+	height: 0.4rem;
+	background: var(--sl-color-accent);
+	border-radius: 50%;
+}
+
+a.pd-branch:hover {
+	color: inherit;
+	background: var(--pd-surface-hover);
+	border-color: var(--sl-color-accent);
+	transform: translateY(-2px);
+}
+
+a.pd-branch:hover .pd-branch__meta svg {
+	transform: translateX(0.2rem);
+}
+
+/* Planned cards recede but stay legible. */
+.pd-branch--planned {
+	background: transparent;
+	border-style: dashed;
+}
+
+.pd-branch--planned .pd-branch__name {
+	color: var(--sl-color-gray-1);
+}
+
+@media (min-width: 40rem) {
+	.pd-branches {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 64rem) {
+	.pd-branches {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+
+/* --- What's inside ------------------------------------------------------- */
+
+.pd-features {
+	display: grid;
+	gap: 1rem;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.pd-feature {
+	padding: 1.35rem 1.4rem;
+	margin: 0;
+	background: var(--pd-surface);
+	border: 1px solid var(--pd-rule);
+	border-radius: var(--pd-radius-lg);
+}
+
+.pd-feature svg {
+	box-sizing: content-box;
+	padding: 0.6rem;
+	color: var(--sl-color-accent);
+	background: var(--sl-color-accent-low);
+	border-radius: var(--pd-radius);
+}
+
+.pd-feature h3 {
+	margin: 1rem 0 0.4rem;
+	font-size: 1rem;
+	font-weight: 600;
+	letter-spacing: -0.005em;
+	color: var(--sl-color-white);
+}
+
+.pd-feature p {
+	margin: 0;
+	font-size: 0.9rem;
+	line-height: 1.6;
+	color: var(--sl-color-gray-2);
+	text-wrap: pretty;
+}
+
+@media (min-width: 36rem) {
+	.pd-features {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+@media (min-width: 64rem) {
+	.pd-features {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+
+/* --- Quote of the day ---------------------------------------------------- */
+
+.pd-quote-card {
+	display: grid;
+	gap: 1.5rem;
+	padding: 1.5rem;
+	margin: 0;
+	background: var(--pd-surface);
+	border: 1px solid var(--pd-rule);
+	border-radius: var(--pd-radius-lg);
 }
 
 /*
  * Portraits arrive as 3:4-ish paintings and photographs of very different
- * origins. Framing them all at 3:4 keeps the hero balanced and reveals the
- * full subject; each portrait supplies its own object-position so the crop holds
- * the head clear of the top edge.
+ * origins. Framing them all at 3:4 reveals the full subject; each portrait
+ * supplies its own object-position so the crop holds the head clear of the top edge.
  */
 .pd-portrait {
 	display: block;
-	width: 100%;
+	width: 8rem;
 	height: auto;
 	aspect-ratio: 3 / 4;
 	object-fit: cover;
+	border: 1px solid var(--pd-rule);
+	border-radius: var(--pd-radius);
 }
 
 /* Warm plates and oils read as a stain against the dark theme; damp them down. */
@@ -232,44 +533,12 @@
 	filter: saturate(0.8) brightness(0.94);
 }
 
-.pd-figure figcaption {
-	padding: 0.85rem 1rem;
-	font-size: 0.8125rem;
-	line-height: 1.5;
-	color: var(--sl-color-gray-3);
-	border-top: 1px solid var(--pd-rule);
-}
-
-.pd-figure figcaption b {
-	font-weight: 600;
-	color: var(--sl-color-gray-2);
-}
-
-/* --- Hero quote ---------------------------------------------------------- */
-
-.pd-figure--quote {
-	max-width: 25rem;
-	width: 100%;
-	margin-inline: auto;
-}
-
-@media (min-width: 56rem) {
-	.pd-figure--quote {
-		margin-inline: 0;
-		justify-self: end;
-	}
-}
-
-.pd-figure--quote figcaption {
-	padding: 1.15rem 1.25rem 1.25rem;
-}
-
 .pd-quote {
 	margin: 0;
 	font-family: var(--pd-font-display);
-	font-size: clamp(1.05rem, 1rem + 0.35vw, 1.2rem);
+	font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.6rem);
 	font-style: italic;
-	line-height: 1.5;
+	line-height: 1.45;
 	color: var(--sl-color-white);
 	text-wrap: pretty;
 }
@@ -278,7 +547,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 0.1rem;
-	margin: 0.85rem 0 0;
+	margin: 1rem 0 0;
 	color: var(--sl-color-gray-2);
 }
 
@@ -305,160 +574,52 @@
 }
 
 .pd-quote__credit {
-	margin: 0.3rem 0 0;
+	margin: 0.6rem 0 0;
 	font-size: 0.75rem;
 	color: var(--sl-color-gray-4);
 }
 
-/* --- Curriculum ---------------------------------------------------------- */
+@media (min-width: 48rem) {
+	.pd-quote-card {
+		grid-template-columns: 11rem minmax(0, 1fr);
+		align-items: center;
+		gap: 2.25rem;
+		padding: 1.75rem;
+	}
 
-.pd-track {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-	border-top: 1px solid var(--pd-rule);
+	.pd-portrait {
+		width: 11rem;
+	}
 }
 
-.pd-track > li {
-	border-bottom: 1px solid var(--pd-rule);
-}
+/* --- Feedback banner ----------------------------------------------------- */
 
-.pd-branch {
-	display: grid;
-	grid-template-columns: 3rem minmax(0, 1fr);
-	gap: 0.35rem 1rem;
-	padding: 1.35rem 0.75rem 1.35rem 0;
-	color: inherit;
-	text-decoration: none;
-}
-
-.pd-branch__num {
-	font-family: var(--pd-font-display);
-	font-size: 1.05rem;
-	font-variant-numeric: tabular-nums;
-	color: var(--sl-color-gray-3);
-}
-
-.pd-branch__body {
-	grid-column: 2;
-}
-
-.pd-branch__name {
-	margin: 0;
-	font-family: var(--pd-font-display);
-	font-size: 1.35rem;
-	font-weight: 600;
-	line-height: 1.25;
-	letter-spacing: -0.015em;
-	color: var(--sl-color-white);
-}
-
-.pd-branch__meta {
+.pd-cta {
 	display: flex;
-	grid-column: 2;
-	align-items: center;
-	gap: 0.55rem;
-	margin-block-start: 0.6rem;
-	font-size: 0.78rem;
-	font-weight: 600;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
-	color: var(--sl-color-gray-3);
-	white-space: nowrap;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 1.5rem;
+	padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+	background: var(--sl-color-accent-low);
+	border: 1px solid color-mix(in srgb, var(--sl-color-accent) 25%, var(--pd-rule));
+	border-radius: var(--pd-radius-lg);
 }
 
-.pd-branch__meta svg {
-	color: var(--sl-color-accent);
-	transition: transform 160ms ease;
-}
-
-.pd-branch__dot {
-	width: 0.4rem;
-	height: 0.4rem;
-	background: var(--sl-color-accent);
-	border-radius: 50%;
-}
-
-a.pd-branch {
-	transition: background-color 160ms ease;
-}
-
-a.pd-branch:hover {
-	color: inherit;
-	background: var(--pd-surface-hover);
-}
-
-a.pd-branch:hover .pd-branch__name {
-	color: var(--sl-color-accent);
-}
-
-a.pd-branch:hover .pd-branch__meta svg {
-	transform: translateX(0.2rem);
-}
-
-/* Planned rows read one step quieter, but the description stays fully legible. */
-.pd-branch--planned .pd-branch__name {
-	color: var(--sl-color-gray-2);
+.pd-cta__copy {
+	display: flex;
+	flex-direction: column;
+	gap: 0.85rem;
 }
 
 @media (min-width: 48rem) {
-	.pd-branch {
-		grid-template-columns: 3rem minmax(0, 1fr) auto;
-		align-items: baseline;
-		gap: 1.25rem;
-		padding-inline-start: 0.5rem;
+	.pd-cta {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		gap: 2.5rem;
 	}
 
-	.pd-branch__meta {
-		grid-column: auto;
-		margin-block-start: 0;
+	.pd-cta .pd-btn {
+		flex: none;
 	}
 }
-
-/* --- What's inside ------------------------------------------------------- */
-
-.pd-features {
-	display: grid;
-	gap: 1.75rem 2.5rem;
-	padding: 0;
-	margin: 0;
-	list-style: none;
-}
-
-.pd-feature {
-	padding-block-start: 1.1rem;
-	border-top: 1px solid var(--pd-rule-strong);
-}
-
-.pd-feature svg {
-	color: var(--sl-color-accent);
-}
-
-.pd-feature h3 {
-	margin: 0.75rem 0 0.4rem;
-	font-size: 1rem;
-	font-weight: 600;
-	letter-spacing: -0.005em;
-	color: var(--sl-color-white);
-}
-
-.pd-feature p {
-	margin: 0;
-	font-size: 0.9rem;
-	line-height: 1.6;
-	color: var(--sl-color-gray-3);
-	text-wrap: pretty;
-}
-
-@media (min-width: 36rem) {
-	.pd-features {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
-}
-
-@media (min-width: 60rem) {
-	.pd-features {
-		grid-template-columns: repeat(4, minmax(0, 1fr));
-	}
-}
-

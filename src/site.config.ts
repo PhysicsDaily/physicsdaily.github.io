@@ -11,6 +11,8 @@ export interface Branch {
 	slug: string;
 	/** Display name shown on the homepage curriculum. */
 	name: string;
+	/** One-line summary shown on the homepage curriculum card. */
+	description: string;
 	/** True once the branch has content; false renders it as "Planned". */
 	live: boolean;
 }
@@ -26,10 +28,10 @@ export const site = {
 	themeStorageKey: 'starlight-theme',
 } as const;
 
-/** Homepage portrait rendering; the head preload must match the <Image> exactly. */
-export const heroPortrait = {
-	widths: [380, 500, 760] as number[],
-	sizes: '(min-width: 56rem) 25rem, min(25rem, 90vw)',
+/** Rendering of the homepage quote-of-the-day portrait. */
+export const quotePortrait = {
+	widths: [176, 264, 352] as number[],
+	sizes: '(min-width: 48rem) 11rem, 8rem',
 	quality: 78,
 };
 
@@ -39,12 +41,42 @@ export const heroPortrait = {
  * To launch a branch: create its content directory and flip `live` to true.
  */
 export const branches: readonly Branch[] = [
-	{ slug: 'mechanics', name: 'Mechanics', live: true },
-	{ slug: 'oscillations-waves', name: 'Oscillations & Waves', live: false },
-	{ slug: 'thermodynamics', name: 'Thermodynamics', live: false },
-	{ slug: 'electromagnetism', name: 'Electromagnetism', live: false },
-	{ slug: 'optics', name: 'Optics', live: false },
-	{ slug: 'modern-physics', name: 'Modern Physics', live: false },
+	{
+		slug: 'mechanics',
+		name: 'Mechanics',
+		description: 'Vectors, motion, forces, and energy: how bodies move and why.',
+		live: true,
+	},
+	{
+		slug: 'oscillations-waves',
+		name: 'Oscillations & Waves',
+		description: 'Periodic motion, resonance, and how waves carry energy.',
+		live: false,
+	},
+	{
+		slug: 'thermodynamics',
+		name: 'Thermodynamics',
+		description: 'Heat, temperature, entropy, and the laws of energy transfer.',
+		live: false,
+	},
+	{
+		slug: 'electromagnetism',
+		name: 'Electromagnetism',
+		description: 'Electric and magnetic fields, circuits, and Maxwell’s equations.',
+		live: false,
+	},
+	{
+		slug: 'optics',
+		name: 'Optics',
+		description: 'Reflection, refraction, lenses, interference, and diffraction.',
+		live: false,
+	},
+	{
+		slug: 'modern-physics',
+		name: 'Modern Physics',
+		description: 'Relativity, quantum mechanics, atoms, and the nucleus.',
+		live: false,
+	},
 ] as const;
 
 /** Slugs of branches that exist (have or will have content). */
